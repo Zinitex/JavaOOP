@@ -25,8 +25,11 @@ public class TUBES extends JFrame {
     private JTable menuItemTable, itemTable;
     private DefaultTableModel menuModel, itemModel;
     private JScrollPane menuScrollPane, itemScrollPane;
-
     private JButton menuAddButton, menuAddMultipleButton, itemAddButton, itemAddMultipleButton;
+
+    // Prevent Duplicate Data
+    private Map<String, Menu> daftarMakanan = new HashMap<>();
+    private Map<String, Menu> daftarMinuman = new HashMap<>();
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
@@ -65,18 +68,48 @@ public class TUBES extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1200, 600);
         setLayout(new BorderLayout());
-        
-        /// Move App screen to middle
-//        setLocationRelativeTo(null);
+
+        this.initialize();
 
         // Wrap Inside Static Panel For Easier To manage
         menuPanel = createMenuPanel();
         add(menuPanel, BorderLayout.WEST);
-
         itemPanel = createItemPanel();
         add(itemPanel, BorderLayout.CENTER);
 
+        for (Map.Entry<String, Menu> entry : daftarMakanan.entrySet()) {
+            Menu instance = entry.getValue();
+            this.addMenuItems(instance);
+        }
+        for (Map.Entry<String, Menu> entry : daftarMinuman.entrySet()) {
+            Menu instance = entry.getValue();
+            this.addMenuItems(instance);
+        }
+
         setVisible(true); // Make sure the frame is visible
+        setLocationRelativeTo(null);
+        setResizable(false);
+    }
+
+    private void addMenuItems(Menu menu){
+        menuModel.addRow(new Object[]{menu.namaMenu, menu.hargaMenu, menu.descMenu});
+    }
+    private void registerMenu(Menu menu) {
+        if (menu.jenisMenu == "Minuman") {
+            this.daftarMinuman.put(menu.namaMenu, menu);
+        } else {
+            this.daftarMakanan.put(menu.namaMenu, menu);
+        }
+    }
+
+    public void initialize() {
+        this.registerMenu(new Makanan("Sate", 1000, "Enak"));
+        this.registerMenu(new Makanan("Bakso", 1000, "Enak"));
+        this.registerMenu(new Minuman("Es Teh", 1000, "Enak"));
+        this.registerMenu(new Minuman("Es Jeruk", 1000, "Enak"));
+
+        System.out.println(daftarMakanan.size());
+        System.out.println(daftarMinuman.size());
     }
 
     public JPanel createMenuPanel() {
@@ -90,7 +123,7 @@ public class TUBES extends JFrame {
         menuPanel.setBorder(BorderFactory.createTitledBorder("Menu Items"));
         menuPanel.add(menuScrollPane, BorderLayout.CENTER);
 
-        /// Add Button at the bottom
+        // Add Button at the bottom
         menuButtonPanel = new JPanel();
         menuButtonPanel.setLayout(new FlowLayout());
 
@@ -100,6 +133,8 @@ public class TUBES extends JFrame {
         menuButtonPanel.add(menuAddButton);
         menuButtonPanel.add(menuAddMultipleButton);
         menuPanel.add(menuButtonPanel, BorderLayout.SOUTH);
+
+        menuPanel.setPreferredSize(new Dimension(500, 600));
 
         return menuPanel;
     }
@@ -115,12 +150,12 @@ public class TUBES extends JFrame {
         itemPanel.setBorder(BorderFactory.createTitledBorder("Items"));
         itemPanel.add(itemScrollPane, BorderLayout.CENTER);
 
-        /// Add Button at the bottom
+        // Add Button at the bottom
         itemButtonPanel = new JPanel();
         itemButtonPanel.setLayout(new FlowLayout());
 
-        itemAddButton = new JButton("Add Item");
-        itemAddMultipleButton = new JButton("Add Multiple Items");
+        itemAddButton = new JButton("Update Item");
+        itemAddMultipleButton = new JButton("Delete Item");
 
         itemButtonPanel.add(itemAddButton);
         itemButtonPanel.add(itemAddMultipleButton);

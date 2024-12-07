@@ -14,5 +14,7 @@ public class Makanan extends Menu{
         this.hargaMenu = hargaMenu;
         this.descMenu = descMenu;
         this.jenisMenu = "Makanan";
+        
+        
     }
 }
