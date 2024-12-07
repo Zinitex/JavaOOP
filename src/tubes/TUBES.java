@@ -19,10 +19,22 @@ import tubes.types.Minuman;
  *
  * @author nanda
  */
-public class TUBES {
+public class TUBES extends JFrame {
+
+    private JPanel itemPanel, menuPanel, menuButtonPanel, itemButtonPanel;
+    private JTable menuItemTable, itemTable;
+    private DefaultTableModel menuModel, itemModel;
+    private JScrollPane menuScrollPane, itemScrollPane;
+
+    private JButton menuAddButton, menuAddMultipleButton, itemAddButton, itemAddMultipleButton;
 
     public static void main(String[] args) {
-
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new TUBES().setVisible(true);
+            }
+        });
 //        Map<String, Menu> daftarMenu = new HashMap<>();
 //
 //        Pemesanan pemesanan = new Pemesanan();
@@ -45,58 +57,74 @@ public class TUBES {
 //
 //        pemesanan.tampilPesanan();
 //        pemesanan.jumlahHarga();
-        JFrame myFrame = new JFrame("Pilih Menu");
-        myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        myFrame.setSize(600, 600);
-        myFrame.setLayout(new BorderLayout());
-
-        /// Wrap Inside Static Panel For Easier To manage
-        JPanel menuPanel = createMenuPanel();
-        myFrame.add(menuPanel, BorderLayout.WEST);
-        
-        JPanel itemPanel = createItemPanel();
-        myFrame.add(itemPanel, BorderLayout.CENTER);
-
-        myFrame.setVisible(true);
 
     }
 
-    public static JPanel createMenuPanel() {
-        DefaultTableModel menuModel = new DefaultTableModel(new Object[]{"Name", "Price", "Description"}, 0);
-        JTable menuItemTable = new JTable(menuModel);
+    public TUBES() {
+        setTitle("Pilih Menu");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(1200, 600);
+        setLayout(new BorderLayout());
+        
+        /// Move App screen to middle
+//        setLocationRelativeTo(null);
+
+        // Wrap Inside Static Panel For Easier To manage
+        menuPanel = createMenuPanel();
+        add(menuPanel, BorderLayout.WEST);
+
+        itemPanel = createItemPanel();
+        add(itemPanel, BorderLayout.CENTER);
+
+        setVisible(true); // Make sure the frame is visible
+    }
+
+    public JPanel createMenuPanel() {
+        menuModel = new DefaultTableModel(new Object[]{"Name", "Price", "Description"}, 0);
+        menuItemTable = new JTable(menuModel);
         menuItemTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         menuItemTable.setDefaultEditor(Object.class, null);
 
-        JScrollPane menuScrollPane = new JScrollPane(menuItemTable);
-        JPanel menuPanel = new JPanel(new BorderLayout());
+        menuScrollPane = new JScrollPane(menuItemTable);
+        menuPanel = new JPanel(new BorderLayout());
         menuPanel.setBorder(BorderFactory.createTitledBorder("Menu Items"));
         menuPanel.add(menuScrollPane, BorderLayout.CENTER);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new FlowLayout());
-
         /// Add Button at the bottom
-        
-        JButton addButton = new JButton("Add Item");
-        JButton addMultipleButton = new JButton("Add Multiple Items");
-        
-        buttonPanel.add(addButton);
-        buttonPanel.add(addMultipleButton);
-        menuPanel.add(buttonPanel, BorderLayout.SOUTH);
+        menuButtonPanel = new JPanel();
+        menuButtonPanel.setLayout(new FlowLayout());
+
+        menuAddButton = new JButton("Add Item");
+        menuAddMultipleButton = new JButton("Add Multiple Items");
+
+        menuButtonPanel.add(menuAddButton);
+        menuButtonPanel.add(menuAddMultipleButton);
+        menuPanel.add(menuButtonPanel, BorderLayout.SOUTH);
 
         return menuPanel;
     }
 
-    public static JPanel createItemPanel() {
-        DefaultTableModel panel = new DefaultTableModel(new Object[]{"Name", "Quantity", "Price", "Subtotal"}, 0);
-        JTable itemTable = new JTable(panel);
+    public JPanel createItemPanel() {
+        itemModel = new DefaultTableModel(new Object[]{"Name", "Quantity", "Price", "Subtotal"}, 0);
+        itemTable = new JTable(itemModel);
         itemTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         itemTable.setDefaultEditor(Object.class, null);
 
-        JScrollPane itemScrollPane = new JScrollPane(itemTable);
-        JPanel itemPanel = new JPanel(new BorderLayout());
+        itemScrollPane = new JScrollPane(itemTable);
+        itemPanel = new JPanel(new BorderLayout());
         itemPanel.setBorder(BorderFactory.createTitledBorder("Items"));
         itemPanel.add(itemScrollPane, BorderLayout.CENTER);
+
+        /// Add Button at the bottom
+        itemButtonPanel = new JPanel();
+        itemButtonPanel.setLayout(new FlowLayout());
+
+        itemAddButton = new JButton("Add Item");
+        itemAddMultipleButton = new JButton("Add Multiple Items");
+
+        itemButtonPanel.add(itemAddButton);
+        itemButtonPanel.add(itemAddMultipleButton);
+        itemPanel.add(itemButtonPanel, BorderLayout.SOUTH);
 
         return itemPanel;
     }
