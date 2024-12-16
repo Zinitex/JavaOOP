@@ -19,8 +19,7 @@ public class resetPasswordForm extends javax.swing.JFrame {
     PreparedStatement st;
 
     private loginForm parent;
-    private boolean isCheck = false;
-    private boolean isFound = false;
+    private String tEmail = "";
 
     /**
      * Creates new form Login
@@ -184,20 +183,52 @@ public class resetPasswordForm extends javax.swing.JFrame {
             if (email.isEmpty() || email.isBlank()) {
                 throw new validasiException("Email can't be empty.");
             }
-            if (isCheck == false) {
+            if (tEmail.isEmpty()) {
                 throw new validasiException("You must check availability for your email.");
             }
-            if (isFound == false) {
-                throw new validasiException("There's no any email matches with yours.");
+            if (!email.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+                throw new validasiException("Invalid email format. Please provide a valid email address.");
             }
             if (password.isEmpty() || password.isBlank()) {
                 throw new validasiException("Password can't be empty.");
             }
+            if (password.length() < 8) {
+                throw new validasiException("Password must be at least 8 characters long.");
+            }
+            if (password.length() > 30) {
+                throw new validasiException("Password cannot exceed 30 characters.");
+            }
+            if (!email.equals(tEmail)) {
+                tEmail = "";
+                throw new validasiException("Email didn't match the last validated email.");
+            }
 
-            textInfo.setText(email + password);
-            textInfo.setForeground(Color.white);
+            PreparedStatement st = database.getConnection().prepareStatement(
+                    "UPDATE person SET password = ? WHERE email = ?");
+            st.setString(1, password);
+            st.setString(2, email);
+
+            int rowsUpdated = st.executeUpdate();
+
+            if (rowsUpdated > 0) {
+                textInfo.setText("Password updated successfully.");
+                textInfo.setForeground(Color.green);
+                
+                formEmail.setText("");
+                formPassword.setText("");
+                tEmail = "";
+            }
+
         } catch (validasiException e) {
             textInfo.setText(e.getMessage());
+            textInfo.setForeground(Color.red);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            textInfo.setText("An error occurred while updating the password.");
+            textInfo.setForeground(Color.red);
+        } catch (Exception e) {
+            e.printStackTrace();
+            textInfo.setText("An unexpected error occurred.");
             textInfo.setForeground(Color.red);
         }
     }//GEN-LAST:event_btnResetActionPerformed
@@ -218,19 +249,18 @@ public class resetPasswordForm extends javax.swing.JFrame {
             if (email.isEmpty() || email.isBlank()) {
                 throw new validasiException("Email cannot be empty.");
             }
-
             PreparedStatement st = database.getConnection().prepareStatement(
                     "SELECT COUNT(*) FROM person WHERE email = ?");
             st.setString(1, email);
-            
             ResultSet rs = st.executeQuery();
-            
+
             if (rs.next() && rs.getInt(1) > 0) {
-                textInfo.setText("Email is already in use.");
-                textInfo.setForeground(Color.red);
-            } else {
-                textInfo.setText("Email is available.");
+                tEmail = email;
+                textInfo.setText("Email is valid.");
                 textInfo.setForeground(Color.green);
+            } else {
+                textInfo.setText("Email is not found.");
+                textInfo.setForeground(Color.red);
             }
 
             rs.close();
@@ -240,6 +270,7 @@ public class resetPasswordForm extends javax.swing.JFrame {
             textInfo.setText(e.getMessage());
             textInfo.setForeground(Color.red);
         }
+
     }//GEN-LAST:event_btnCheckActionPerformed
 
     /**

@@ -187,11 +187,6 @@ public class loginForm extends javax.swing.JFrame {
         new resetPasswordForm(this).setVisible(true);
     }//GEN-LAST:event_btnResetActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogin;
