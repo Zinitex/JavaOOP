@@ -4,18 +4,24 @@
  */
 package GUI;
 
+import Lib.database;
 import Lib.validasiException;
 import Models.account;
 import java.awt.Color;
+import java.sql.*;
 
 /**
  *
  * @author nanda
  */
 public class resetPasswordForm extends javax.swing.JFrame {
+
+    PreparedStatement st;
+
     private loginForm parent;
     private boolean isCheck = false;
     private boolean isFound = false;
+
     /**
      * Creates new form Login
      */
@@ -174,20 +180,20 @@ public class resetPasswordForm extends javax.swing.JFrame {
         try {
             String email = formEmail.getText();
             String password = formPassword.getText();
-            
-            if(email.isEmpty() || email.isBlank()){
-                throw new validasiException("Email can't be empty."); 
+
+            if (email.isEmpty() || email.isBlank()) {
+                throw new validasiException("Email can't be empty.");
             }
-            if(isCheck == false){
+            if (isCheck == false) {
                 throw new validasiException("You must check availability for your email.");
             }
-            if(isFound == false){
+            if (isFound == false) {
                 throw new validasiException("There's no any email matches with yours.");
             }
-            if(password.isEmpty() || password.isBlank()){
-                throw new validasiException("Password can't be empty."); 
+            if (password.isEmpty() || password.isBlank()) {
+                throw new validasiException("Password can't be empty.");
             }
-            
+
             textInfo.setText(email + password);
             textInfo.setForeground(Color.white);
         } catch (validasiException e) {
@@ -206,16 +212,39 @@ public class resetPasswordForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
-        if(this.isCheck == true){
-            this.isFound = true;
+        String email = formEmail.getText();
+
+        try {
+            if (email.isEmpty() || email.isBlank()) {
+                throw new validasiException("Email cannot be empty.");
+            }
+
+            PreparedStatement st = database.getConnection().prepareStatement(
+                    "SELECT COUNT(*) FROM person WHERE email = ?");
+            st.setString(1, email);
+            
+            ResultSet rs = st.executeQuery();
+            
+            if (rs.next() && rs.getInt(1) > 0) {
+                textInfo.setText("Email is already in use.");
+                textInfo.setForeground(Color.red);
+            } else {
+                textInfo.setText("Email is available.");
+                textInfo.setForeground(Color.green);
+            }
+
+            rs.close();
+            st.close();
+
+        } catch (Exception e) {
+            textInfo.setText(e.getMessage());
+            textInfo.setForeground(Color.red);
         }
-        this.isCheck = true;
     }//GEN-LAST:event_btnCheckActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCheck;

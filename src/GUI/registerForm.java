@@ -9,16 +9,17 @@ import Lib.database;
 import Lib.validasiException;
 import Models.account;
 import java.awt.Color;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  *
  * @author nanda
  */
 public class registerForm extends javax.swing.JFrame {
+
+    PreparedStatement st;
     private loginForm parent;
+
     /**
      * Creates new form Login
      */
@@ -223,10 +224,9 @@ public class registerForm extends javax.swing.JFrame {
             String name = formName.getText();
             String phone = formPhone.getText();
             Boolean isAdmin = radioAdmin.isSelected();
-            
-            
-            if(email.isEmpty() || email.isBlank()){
-    throw new validasiException("Email cannot be empty.");
+
+            if (email.isEmpty() || email.isBlank()) {
+                throw new validasiException("Email cannot be empty.");
             }
             if (!email.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
                 throw new validasiException("Invalid email format. Please provide a valid email address.");
@@ -234,8 +234,8 @@ public class registerForm extends javax.swing.JFrame {
             if (password.length() > 50) {
                 throw new validasiException("Email cannot exceed 50 characters.");
             }
-            if(password.isEmpty() || password.isBlank()){
-                throw new validasiException("Password cannot be empty."); 
+            if (password.isEmpty() || password.isBlank()) {
+                throw new validasiException("Password cannot be empty.");
             }
             if (password.length() < 8) {
                 throw new validasiException("Password must be at least 8 characters long.");
@@ -243,37 +243,43 @@ public class registerForm extends javax.swing.JFrame {
             if (password.length() > 30) {
                 throw new validasiException("Password cannot exceed 30 characters.");
             }
-            if(name.isEmpty() || name.isBlank()){
-                throw new validasiException("Name cannot be empty."); 
+            if (name.isEmpty() || name.isBlank()) {
+                throw new validasiException("Name cannot be empty.");
             }
             if (name.length() > 50) {
                 throw new validasiException("Name cannot exceed 50 characters.");
             }
-            if(phone.isEmpty() || phone.isBlank()){
+            if (phone.isEmpty() || phone.isBlank()) {
                 throw new validasiException("Phone number cannot be empty.");
             }
             if (phone.length() < 11) {
                 throw new validasiException("Phone number must be at least 11 characters long.");
             }
             if (phone.length() > 15) {
-               throw new validasiException("Phone number cannot exceed 15 characters.");
+                throw new validasiException("Phone number cannot exceed 15 characters.");
             }
-            
-            PreparedStatement st;
+
             System.out.println("Test");
-            
+
             try {
                 st = database.getConnection().prepareStatement(
-                "Insert into person values(?,?,?,?,?)");
+                        "Insert into person values(?,?,?,?,?)");
                 st.setString(1, email);
                 st.setString(2, password);
                 st.setString(3, name);
                 st.setString(4, phone);
                 st.setBoolean(5, isAdmin);
                 st.executeUpdate();
-                
+
                 textInfo.setText("Account registration successful!");
                 textInfo.setForeground(Color.green);
+                
+                st.close();
+                formEmail.setText("");
+                formPassword.setText("");
+                formName.setText("");
+                formPhone.setText("");
+                radioAdmin.setSelected(false);
             } catch (SQLException e) {
                 if (e.getErrorCode() == 1062) { // MySQL duplicate entry error code
                     textInfo.setText("Email is already in use. Please try a different email.");
@@ -284,7 +290,7 @@ public class registerForm extends javax.swing.JFrame {
                     textInfo.setForeground(Color.red);
                 }
             }
-            
+
         } catch (validasiException e) {
             textInfo.setText(e.getMessage());
             textInfo.setForeground(Color.red);
@@ -315,7 +321,6 @@ public class registerForm extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnRegister;

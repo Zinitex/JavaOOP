@@ -4,6 +4,7 @@
  */
 package tubes;
 
+import GUI.Debug;
 import GUI.loginForm;
 import Lib.database;
 import java.sql.Connection;
@@ -22,6 +23,9 @@ public class TUBES {
         System.out.println("Test");
         new TUBES().loadData();
         new loginForm().setVisible(true);
+        
+        
+        new Debug().setVisible(true);
     }
     
     public void loadData() {
