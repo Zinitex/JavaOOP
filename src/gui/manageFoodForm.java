@@ -2,12 +2,12 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package GUI;
+package gui;
 
-import Databases.DatabasePerson;
-import Lib.database;
-import Lib.validasiException;
-import Models.account;
+import databases.databasePerson;
+import lib.database;
+import lib.validasiException;
+import models.account;
 import java.awt.Color;
 import java.sql.*;
 

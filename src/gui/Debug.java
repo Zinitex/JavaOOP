@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package GUI;
+package gui;
 
-import Lib.database;
+import lib.database;
 import javax.swing.JOptionPane;
 import java.sql.*;
 

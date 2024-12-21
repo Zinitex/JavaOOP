@@ -4,10 +4,10 @@
  */
 package tubes;
 
-import GUI.Debug;
-import GUI.loginForm;
-import Lib.database;
-import Models.account;
+import gui.Debug;
+import gui.loginForm;
+import lib.database;
+import models.account;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -35,7 +35,6 @@ public class TUBES {
 
             System.out.println("Connected to the database.");
         } catch (Exception e) {
-            System.out.println("Test");
             e.printStackTrace();
         }
     }
