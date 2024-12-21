@@ -4,6 +4,8 @@
  */
 package models;
 
+import gui.debug;
+import gui.mainMenu;
 import lib.validasiException;
 
 /**
@@ -23,5 +25,12 @@ public class account {
         this.phone = phone;
         this.username = username;
         this.isAdmin = isAdmin;
+    }
+    
+    public void login(){
+        if(this.isAdmin){
+            new debug().setVisible(true);
+        }
+        new mainMenu(this).setVisible(true);
     }
 }

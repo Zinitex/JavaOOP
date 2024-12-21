@@ -193,7 +193,7 @@ public class loginForm extends javax.swing.JFrame {
                 String phone = rs.getString("phone");
                 boolean isAdmin = rs.getBoolean("isAdmin");
 
-                new TUBES().login(userEmail, userPassword, phone, name, isAdmin);
+                new account(userEmail, userPassword, phone, name, isAdmin).login();
                 this.setVisible(false);
             } else {
                 throw new validasiException("Invalid email or password. Please try again.");
