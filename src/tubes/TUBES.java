@@ -7,6 +7,7 @@ package tubes;
 import GUI.Debug;
 import GUI.loginForm;
 import Lib.database;
+import Models.account;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -19,15 +20,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TUBES {
 
+    account akun;
+
     public static void main(String[] args) {
         System.out.println("Test");
         new TUBES().loadData();
         new loginForm().setVisible(true);
-        
-        
-        new Debug().setVisible(true);
     }
-    
+
     public void loadData() {
         try {
             Connection connection = database.getConnection();
@@ -36,6 +36,14 @@ public class TUBES {
             System.out.println("Connected to the database.");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void login(String email, String password, String phone, String username, Boolean isAdmin) {
+        akun = new account(email, password, phone, username, isAdmin);
+
+        if (this.akun.isAdmin) {
+            new Debug().setVisible(true);
         }
     }
 }

@@ -17,8 +17,11 @@ public class account {
     public String username;
     public Boolean isAdmin;
     
-    public account(String email, String password) {
+    public account(String email, String password, String phone, String username, Boolean isAdmin) {
         this.email = email;
         this.password = password;
+        this.phone = phone;
+        this.password = password;
+        this.isAdmin = isAdmin;
     }
 }

@@ -209,7 +209,7 @@ public class resetPasswordForm extends javax.swing.JFrame {
             st.setString(2, email);
 
             int rowsUpdated = st.executeUpdate();
-
+            
             if (rowsUpdated > 0) {
                 textInfo.setText("Password updated successfully.");
                 textInfo.setForeground(Color.green);
@@ -218,6 +218,8 @@ public class resetPasswordForm extends javax.swing.JFrame {
                 formPassword.setText("");
                 tEmail = "";
             }
+            
+            st.close();
 
         } catch (validasiException e) {
             textInfo.setText(e.getMessage());
@@ -248,6 +250,9 @@ public class resetPasswordForm extends javax.swing.JFrame {
         try {
             if (email.isEmpty() || email.isBlank()) {
                 throw new validasiException("Email cannot be empty.");
+            }
+            if (!email.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+                throw new validasiException("Invalid email format. Please provide a valid email address.");
             }
             PreparedStatement st = database.getConnection().prepareStatement(
                     "SELECT COUNT(*) FROM person WHERE email = ?");

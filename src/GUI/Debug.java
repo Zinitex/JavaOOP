@@ -35,6 +35,7 @@ public class Debug extends javax.swing.JFrame {
         btnResetTransaksi = new javax.swing.JButton();
         btnResetMenu = new javax.swing.JButton();
 
+        setTitle("DEV DEBUG");
         setAlwaysOnTop(true);
 
         btnResetAkun.setText("Reset Database Akun");

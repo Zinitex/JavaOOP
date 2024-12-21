@@ -4,11 +4,12 @@
  */
 package GUI;
 
+import Lib.database;
 import Lib.validasiException;
 import Models.account;
 import java.awt.Color;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import java.sql.*;
+import tubes.TUBES;
 
 /**
  *
@@ -110,7 +111,7 @@ public class loginForm extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3))
-                        .addGap(17, 23, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(formEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(formPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -161,17 +162,50 @@ public class loginForm extends javax.swing.JFrame {
         try {
             String email = formEmail.getText();
             String password = formPassword.getText();
-            
-            if(email.isEmpty() || email.isBlank()){
-                throw new validasiException("Email can't be empty"); 
+
+            if (email.isEmpty() || email.isBlank()) {
+                throw new validasiException("Email can't be empty.");
             }
-            if(password.isEmpty() || password.isBlank()){
-                throw new validasiException("Password can't be empty"); 
+            if (!email.matches("^[\\w.%+-]+@[\\w.-]+\\.[a-zA-Z]{2,6}$")) {
+                throw new validasiException("Invalid email format.");
             }
-            
-            textInfo.setText(email + password);
-            textInfo.setForeground(Color.white);
+            if (password.isEmpty() || password.isBlank()) {
+                throw new validasiException("Password can't be empty.");
+            }
+            if (password.length() < 8) {
+                throw new validasiException("Password must be at least 8 characters.");
+            }
+            if (password.length() > 30) {
+                throw new validasiException("Password cannot exceed 30 characters.");
+            }
+
+            PreparedStatement st = database.getConnection().prepareStatement(
+                    "SELECT email, password, name, phone, isAdmin FROM person WHERE email = ? AND password = ?");
+            st.setString(1, email);
+            st.setString(2, password);
+
+            ResultSet rs = st.executeQuery();
+
+            if (rs.next()) {
+                String userEmail = rs.getString("email");
+                String userPassword = rs.getString("password");
+                String name = rs.getString("name");
+                String phone = rs.getString("phone");
+                boolean isAdmin = rs.getBoolean("isAdmin");
+
+                new TUBES().login(userEmail, userPassword, phone, name, isAdmin);
+                this.setVisible(false);
+            } else {
+                throw new validasiException("Invalid email or password. Please try again.");
+            }
+
+            rs.close();
+            st.close();
+
         } catch (validasiException e) {
+            textInfo.setText(e.getMessage());
+            textInfo.setForeground(Color.red);
+        } catch (Exception e) {
             textInfo.setText(e.getMessage());
             textInfo.setForeground(Color.red);
         }
