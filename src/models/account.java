@@ -15,20 +15,18 @@ import lib.validasiException;
 public class account {
     public String email;
     public String password;
-    public String phone;
     public String username;
-    public Boolean isAdmin;
+    public String role;
     
-    public account(String email, String password, String phone, String username, Boolean isAdmin) {
+    public account(String email, String password, String username, String role) {
         this.email = email;
         this.password = password;
-        this.phone = phone;
         this.username = username;
-        this.isAdmin = isAdmin;
+        this.role = role;
     }
     
     public void login(){
-        if(this.isAdmin){
+        if(this.role.matches("admin")){
             new debug().setVisible(true);
         }
         new mainMenu(this).setVisible(true);

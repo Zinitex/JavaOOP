@@ -180,7 +180,7 @@ public class loginForm extends javax.swing.JFrame {
             }
 
             PreparedStatement st = database.getConnection().prepareStatement(
-                    "SELECT email, password, name, phone, isAdmin FROM person WHERE email = ? AND password = ?");
+                    "SELECT email, password, role, name FROM users WHERE email = ? AND password = ?");
             st.setString(1, email);
             st.setString(2, password);
 
@@ -189,11 +189,14 @@ public class loginForm extends javax.swing.JFrame {
             if (rs.next()) {
                 String userEmail = rs.getString("email");
                 String userPassword = rs.getString("password");
+                String role = rs.getString("role");
                 String name = rs.getString("name");
-                String phone = rs.getString("phone");
-                boolean isAdmin = rs.getBoolean("isAdmin");
 
-                new account(userEmail, userPassword, phone, name, isAdmin).login();
+                System.out.println(rs.getString("email"));
+                System.out.println(rs.getString("password"));
+                System.out.println(rs.getString("role"));
+                System.out.println(rs.getString("name"));
+                new account(userEmail, userPassword, name, role).login();
                 this.setVisible(false);
             } else {
                 throw new validasiException("Invalid email or password. Please try again.");

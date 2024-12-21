@@ -51,8 +51,6 @@ public class registerForm extends javax.swing.JFrame {
         textInfo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         formName = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        formPhone = new javax.swing.JTextField();
 
         jPasswordField1.setText("jPasswordField1");
 
@@ -118,15 +116,6 @@ public class registerForm extends javax.swing.JFrame {
             }
         });
 
-        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel5.setText("Phone Number");
-
-        formPhone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                formPhoneActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -149,10 +138,6 @@ public class registerForm extends javax.swing.JFrame {
                                     .addComponent(jLabel1)
                                     .addComponent(textInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(4, 4, 4))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addGap(17, 17, 17)
-                                .addComponent(formPhone))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -190,15 +175,11 @@ public class registerForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(formName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5)
-                    .addComponent(formPhone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addGap(30, 30, 30)
                 .addComponent(radioAdmin)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegister)
-                .addGap(18, 18, 18)
+                .addGap(28, 28, 28)
                 .addComponent(textInfo)
                 .addGap(23, 23, 23))
         );
@@ -207,7 +188,7 @@ public class registerForm extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 473, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 473, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,7 +203,6 @@ public class registerForm extends javax.swing.JFrame {
             String email = formEmail.getText();
             String password = formPassword.getText();
             String name = formName.getText();
-            String phone = formPhone.getText();
             Boolean isAdmin = radioAdmin.isSelected();
 
             if (email.isEmpty() || email.isBlank()) {
@@ -249,26 +229,17 @@ public class registerForm extends javax.swing.JFrame {
             if (name.length() > 50) {
                 throw new validasiException("Name cannot exceed 50 characters.");
             }
-            if (phone.isEmpty() || phone.isBlank()) {
-                throw new validasiException("Phone number cannot be empty.");
-            }
-            if (phone.length() < 11) {
-                throw new validasiException("Phone number must be at least 11 characters long.");
-            }
-            if (phone.length() > 15) {
-                throw new validasiException("Phone number cannot exceed 15 characters.");
-            }
 
             System.out.println("Test");
 
             try {
                 st = database.getConnection().prepareStatement(
-                        "Insert into person values(?,?,?,?,?)");
+                        "Insert into users values(NULL,?,?,?,?)");
+
                 st.setString(1, email);
                 st.setString(2, password);
-                st.setString(3, name);
-                st.setString(4, phone);
-                st.setBoolean(5, isAdmin);
+                st.setString(3, isAdmin ? "user" : "admin");
+                st.setString(4, name);
                 st.executeUpdate();
 
                 textInfo.setText("Account registration successful!");
@@ -278,7 +249,6 @@ public class registerForm extends javax.swing.JFrame {
                 formEmail.setText("");
                 formPassword.setText("");
                 formName.setText("");
-                formPhone.setText("");
                 radioAdmin.setSelected(false);
             } catch (SQLException e) {
                 if (e.getErrorCode() == 1062) { // MySQL duplicate entry error code
@@ -314,10 +284,6 @@ public class registerForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formNameActionPerformed
 
-    private void formPhoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_formPhoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_formPhoneActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -328,12 +294,10 @@ public class registerForm extends javax.swing.JFrame {
     private javax.swing.JTextField formEmail;
     private javax.swing.JTextField formName;
     private javax.swing.JTextField formPassword;
-    private javax.swing.JTextField formPhone;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JCheckBox radioAdmin;

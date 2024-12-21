@@ -33,7 +33,7 @@ public class TUBES {
 //        new loginForm().setVisible(true);
         
 //      bypass login 
-        new account("nanda@gmail.com", "admin123", "08123456789", "nanda", true).login();
+        new account("nanda@gmail.com", "admin123","nanda", "admin").login();
     }
 
     public boolean loadData() {

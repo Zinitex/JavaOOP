@@ -52,7 +52,7 @@ public class mainMenu extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
 
-        welcomeText.setFont(new java.awt.Font("Inter", 0, 18)); // NOI18N
+        welcomeText.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
         welcomeText.setForeground(new java.awt.Color(17, 17, 17));
         welcomeText.setText("Selamat datang %s");
 
@@ -158,7 +158,7 @@ public class mainMenu extends javax.swing.JFrame {
         welcomeText.setText(String.format("Selamat datang, %s.", akun.username));
         welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
         
-        if(!akun.isAdmin){
+        if(!akun.role.matches("admin")){
             btnManageMenu.setVisible(false);
             btnManagePesanan.setVisible(false);
         }
