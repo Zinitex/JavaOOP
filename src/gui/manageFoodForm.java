@@ -18,12 +18,12 @@ import java.sql.*;
 public class manageFoodForm extends javax.swing.JFrame {
 
     PreparedStatement st;
-    private loginForm parent;
+    private mainMenu parent;
 
     /**
      * Creates new form Login
      */
-    public manageFoodForm(loginForm parent) {
+    public manageFoodForm(mainMenu parent) {
         initComponents();
         setLocationRelativeTo(null);
         this.parent = parent;

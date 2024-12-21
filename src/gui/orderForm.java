@@ -19,13 +19,13 @@ import java.sql.*;
 public class orderForm extends javax.swing.JFrame {
 
     PreparedStatement st;
-    private loginForm parent;
+    private mainMenu parent;
     private CardLayout cardLayout;
 
     /**
      * Creates new form Login
      */
-    public orderForm(loginForm parent) {
+    public orderForm(mainMenu parent) {
         initComponents();
         setLocationRelativeTo(null);
         this.parent = parent;
