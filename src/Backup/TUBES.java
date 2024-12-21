@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 //import tubes.types.Menu;
 import java.util.HashMap;
 import java.util.Map;
-import li.formatCurrency;
+//import li.formatCurrency;
 //import tubes.types.Makanan;
 //import tubes.types.Minuman;
 

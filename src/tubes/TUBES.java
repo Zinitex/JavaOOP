@@ -4,7 +4,7 @@
  */
 package tubes;
 
-import gui.Debug;
+import gui.debug;
 import gui.loginForm;
 import lib.database;
 import models.account;
@@ -24,18 +24,27 @@ public class TUBES {
 
     public static void main(String[] args) {
         System.out.println("Apaan coek");
-        new TUBES().loadData();
+
+        TUBES app = new TUBES();
+
+        if (!app.loadData()) {
+            System.out.println("Failed to load data. Exiting program.");
+            return; 
+        }
+
         new loginForm().setVisible(true);
     }
 
-    public void loadData() {
+    public boolean loadData() {
         try {
             Connection connection = database.getConnection();
             Statement statement = connection.createStatement();
 
             System.out.println("Connected to the database.");
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
     }
 
@@ -43,7 +52,7 @@ public class TUBES {
         akun = new account(email, password, phone, username, isAdmin);
 
         if (this.akun.isAdmin) {
-            new Debug().setVisible(true);
+            new debug().setVisible(true);
         }
     }
 }
