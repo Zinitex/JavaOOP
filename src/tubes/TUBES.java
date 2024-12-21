@@ -23,7 +23,7 @@ public class TUBES {
     account akun;
 
     public static void main(String[] args) {
-        System.out.println("Test");
+        System.out.println("Apaan coek");
         new TUBES().loadData();
         new loginForm().setVisible(true);
     }
@@ -35,6 +35,7 @@ public class TUBES {
 
             System.out.println("Connected to the database.");
         } catch (Exception e) {
+            System.out.println("Test");
             e.printStackTrace();
         }
     }
@@ -47,3 +48,4 @@ public class TUBES {
         }
     }
 }
+
