@@ -50,9 +50,9 @@ public class tambahMakanan extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Nama Makanan / minuman");
+        jLabel1.setText("Nama Makanan ");
 
-        jLabel2.setText("Id Makanan/Minuman ");
+        jLabel2.setText("Id Makanan");
 
         jLabel3.setText("Harga ");
 
@@ -69,7 +69,7 @@ public class tambahMakanan extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Makanan/minuman", "ID makanan/minuman", "Harga", "Jumlah"
+                "Makanan", "ID makanan", "Harga", "Jumlah"
             }
         ));
         jScrollPane1.setViewportView(tblTambah);
