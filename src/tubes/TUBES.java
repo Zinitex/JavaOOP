@@ -6,6 +6,7 @@ package tubes;
 
 import gui.debug;
 import gui.loginForm;
+import gui.mainMenu;
 import lib.database;
 import models.account;
 import java.sql.Connection;
@@ -20,8 +21,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TUBES {
 
-    account akun;
-
+    private account akun;
     public static void main(String[] args) {
         System.out.println("Apaan coek");
 
@@ -32,7 +32,10 @@ public class TUBES {
             return; 
         }
 
-        new loginForm().setVisible(true);
+//        new loginForm().setVisible(true);
+        
+//      Dev 
+        app.login("nanda@gmail.com", "admin123", "08123456789", "nanda", true);
     }
 
     public boolean loadData() {
@@ -51,6 +54,7 @@ public class TUBES {
     public void login(String email, String password, String phone, String username, Boolean isAdmin) {
         akun = new account(email, password, phone, username, isAdmin);
 
+        new mainMenu(akun).setVisible(true);
         if (this.akun.isAdmin) {
             new debug().setVisible(true);
         }

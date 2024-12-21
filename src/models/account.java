@@ -21,7 +21,7 @@ public class account {
         this.email = email;
         this.password = password;
         this.phone = phone;
-        this.password = password;
+        this.username = username;
         this.isAdmin = isAdmin;
     }
 }
