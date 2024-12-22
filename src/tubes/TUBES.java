@@ -21,8 +21,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TUBES {
     public static void main(String[] args) {
-        System.out.println("Apaan coek");
-
         TUBES app = new TUBES();
 
         if (!app.loadData()) {
