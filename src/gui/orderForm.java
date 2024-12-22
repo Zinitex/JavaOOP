@@ -72,7 +72,7 @@ public class orderForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Name", "Desc", "Price"
+                "ID", "Nama", "Deskripsi", "Harga"
             }
         ) {
             Class[] types = new Class [] {
@@ -95,14 +95,14 @@ public class orderForm extends javax.swing.JFrame {
             tableMenu.getColumnModel().getColumn(0).setMaxWidth(30);
         }
 
-        btnAddItem.setText("Add Item");
+        btnAddItem.setText("Tambah");
         btnAddItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddItemActionPerformed(evt);
             }
         });
 
-        btnAddItems.setText("Add Multiple Items");
+        btnAddItems.setText("Tambah Beberapa..");
         btnAddItems.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAddItemsActionPerformed(evt);
@@ -142,7 +142,7 @@ public class orderForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Name", "Quantity", "Price", "Total"
+                "Nama", "Jumlah", "Harga", "Total"
             }
         ) {
             Class[] types = new Class [] {
@@ -166,14 +166,14 @@ public class orderForm extends javax.swing.JFrame {
             tableOrder.getColumnModel().getColumn(1).setPreferredWidth(15);
         }
 
-        btnDeleteItem.setText("Delete Item");
+        btnDeleteItem.setText("Hapus");
         btnDeleteItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnDeleteItemActionPerformed(evt);
             }
         });
 
-        btnEditItem.setText("Edit Item");
+        btnEditItem.setText("Edit");
         btnEditItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnEditItemActionPerformed(evt);
@@ -192,7 +192,7 @@ public class orderForm extends javax.swing.JFrame {
                         .addComponent(btnEditItem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDeleteItem)
-                        .addContainerGap(206, Short.MAX_VALUE))
+                        .addContainerGap(230, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())))
