@@ -65,7 +65,7 @@ public class mainMenu extends javax.swing.JFrame {
             }
         });
 
-        btnHistory.setText("Check History");
+        btnHistory.setText("Riwayat Pesanan");
 
         btnManagePesanan.setText("Manage Pesanan");
         btnManagePesanan.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +76,7 @@ public class mainMenu extends javax.swing.JFrame {
 
         btnManageMenu.setText("Manage Menu");
 
-        jButton4.setText("Log Out");
+        jButton4.setText("Keluar");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);

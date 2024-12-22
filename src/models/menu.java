@@ -10,14 +10,16 @@ package models;
  */
 public class menu {
 
-    public menu(String nama, String desc, String harga) {
+    public menu(int id, String nama, String desc, int harga) {
+        this.id = id;
         this.nama = nama;
         this.desc = desc;
         this.harga = harga;
     }
+    public int id;
     public String nama;
     public String desc;
-    public String harga;
+    public int harga;
     
     
 }

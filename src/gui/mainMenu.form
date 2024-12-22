@@ -123,7 +123,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="btnHistory">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Check History"/>
+            <Property name="text" type="java.lang.String" value="Riwayat Pesanan"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="btnManagePesanan">
@@ -141,7 +141,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="jButton4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Log Out"/>
+            <Property name="text" type="java.lang.String" value="Keluar"/>
           </Properties>
         </Component>
       </SubComponents>

@@ -10,8 +10,7 @@ import java.util.List;
  *
  * @author nanda
  */
-public class pemesanan {
-
+public class order {
     public String email;
     public String tanggal;
     public String total_harga;
