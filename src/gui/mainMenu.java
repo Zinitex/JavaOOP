@@ -5,8 +5,7 @@
 package gui;
 
 import javax.swing.SwingConstants;
-import models.account;
-import tubes.TUBES;
+import static tubes.TUBES.akun;
 
 /**
  *
@@ -153,11 +152,10 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel welcomeText;
     // End of variables declaration//GEN-END:variables
     private void init() {
-        welcomeText.setText(String.format("Selamat datang, %s.", TUBES.akun.username));
-
+        welcomeText.setText(String.format("Selamat datang, %s.", akun.username));
         welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
         
-        if(!TUBES.akun.role.matches("admin")){
+        if(!akun.role.matches("admin")){
             btnManageMenu.setVisible(false);
             btnManagePesanan.setVisible(false);
         }

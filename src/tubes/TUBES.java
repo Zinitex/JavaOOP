@@ -4,16 +4,13 @@
  */
 package tubes;
 
-import gui.debug;
-import gui.loginForm;
-import gui.mainMenu;
+
 import lib.database;
 import models.account;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import models.detail_menu;
 
 /**
  *
@@ -22,6 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class TUBES {
 
     public static account akun;
+    public static ArrayList<detail_menu> orderList = new ArrayList<>();
 
     public static void main(String[] args) {
         TUBES app = new TUBES();

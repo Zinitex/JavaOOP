@@ -6,9 +6,6 @@ package gui;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import javax.swing.*;
 import javax.swing.table.*;
 import lib.database;
@@ -16,6 +13,7 @@ import models.detail_menu;
 import models.menu;
 import javax.swing.table.DefaultTableCellRenderer;
 import lib.formatCurrency;
+import static tubes.TUBES.orderList;
 
 /**
  *
@@ -27,8 +25,6 @@ public class orderForm extends javax.swing.JFrame {
     private mainMenu parent;
 
     private DefaultTableModel tableMenuModel, tableOrderModel;
-
-    private ArrayList<detail_menu> orderList = new ArrayList<>();
     private ArrayList<menu> menuList = new ArrayList<>();
 
     /**
@@ -536,6 +532,8 @@ public class orderForm extends javax.swing.JFrame {
 
                 tableMenu.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
+            
+            updateOrderTable();
         } catch (Exception e) {
             e.printStackTrace();
         }
