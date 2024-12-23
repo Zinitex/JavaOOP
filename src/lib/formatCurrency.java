@@ -12,7 +12,7 @@ import java.util.Locale;
  * @author nanda
  */
 public class formatCurrency {
-    public String format(int number){
+    public static String format(int number){
         Locale indonesianLocale = new Locale("id", "ID");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(indonesianLocale);
         String formattedPrice = currencyFormatter.format(number);

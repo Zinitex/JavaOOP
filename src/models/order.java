@@ -11,8 +11,8 @@ import java.util.List;
  * @author nanda
  */
 public class order {
-    public String email;
-    public String tanggal;
-    public String total_harga;
+    private String email;
+    private String tanggal;
+    private String total_harga;
     private List<menu> Menu;
 }

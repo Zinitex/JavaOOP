@@ -10,7 +10,7 @@ import models.account;
 import java.sql.Connection;
 import java.sql.Statement;
 import java.util.ArrayList;
-import models.detail_menu;
+import models.detailMenu;
 
 /**
  *
@@ -19,7 +19,7 @@ import models.detail_menu;
 public class TUBES {
 
     public static account akun;
-    public static ArrayList<detail_menu> orderList = new ArrayList<>();
+    public static ArrayList<detailMenu> orderList = new ArrayList<>();
 
     public static void main(String[] args) {
         TUBES app = new TUBES();

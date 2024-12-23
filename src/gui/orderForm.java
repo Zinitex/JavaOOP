@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import javax.swing.table.*;
 import lib.database;
-import models.detail_menu;
+import models.detailMenu;
 import models.menu;
 import javax.swing.table.DefaultTableCellRenderer;
 import lib.formatCurrency;
@@ -61,6 +61,7 @@ public class orderForm extends javax.swing.JFrame {
         btnDeleteItem = new javax.swing.JButton();
         btnEditItem = new javax.swing.JButton();
         txtTotal = new javax.swing.JLabel();
+        btnReset = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
 
@@ -226,6 +227,13 @@ public class orderForm extends javax.swing.JFrame {
         txtTotal.setForeground(new java.awt.Color(17, 17, 17));
         txtTotal.setText("Total : %s");
 
+        btnReset.setText("Reset");
+        btnReset.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnResetActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -234,14 +242,13 @@ public class orderForm extends javax.swing.JFrame {
                 .addGap(10, 10, 10)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
                         .addComponent(btnEditItem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnDeleteItem)
-                        .addGap(0, 252, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                        .addGap(10, 10, 10))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnReset))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(txtTotal)
@@ -255,7 +262,8 @@ public class orderForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditItem)
-                    .addComponent(btnDeleteItem))
+                    .addComponent(btnDeleteItem)
+                    .addComponent(btnReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtTotal)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -278,7 +286,7 @@ public class orderForm extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(153, 204, 255));
 
-        jButton1.setText("Confirm Order");
+        jButton1.setText("Konfirmasi Order");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
@@ -290,7 +298,7 @@ public class orderForm extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(716, Short.MAX_VALUE)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -379,9 +387,9 @@ public class orderForm extends javax.swing.JFrame {
             return;
         }
 
-        detail_menu data = orderList.get(selectedRow);
+        detailMenu data = orderList.get(selectedRow);
 
-        String quantityText = JOptionPane.showInputDialog(this, "Masukkan jumlah yang ingin dimasukkan:", data.quantity);
+        String quantityText = JOptionPane.showInputDialog(this, "Masukkan jumlah yang ingin dimasukkan:", data.getQuantity());
         if (quantityText != null && !quantityText.isEmpty()) {
             try {
                 int newQuantity = Integer.parseInt(quantityText);
@@ -390,17 +398,17 @@ public class orderForm extends javax.swing.JFrame {
                     return;
                 }
 
-                if (newQuantity > data.Menu.stock) {
+                if (newQuantity > data.getMenu().getStock()) {
                     JOptionPane.showMessageDialog(this,
-                            "Jumlah melebihi stok yang tersedia. Jumlah akan diatur ke stok maksimum (" + data.Menu.stock + ").",
+                            "Jumlah melebihi stok yang tersedia. Jumlah akan diatur ke stok maksimum (" + data.getMenu().getStock() + ").",
                             "Peringatan Stok",
                             JOptionPane.WARNING_MESSAGE);
-                    data.quantity = data.Menu.stock; // Set to max stock
+                    data.setQuantity(data.getMenu().getStock());
                 } else {
-                    data.quantity = newQuantity; // Update quantity
+                    data.setQuantity(newQuantity);
                 }
 
-                data.calculateTotal(); // Recalculate the total
+                data.calculateTotal();
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Angka tidak valid.");
             }
@@ -415,8 +423,15 @@ public class orderForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        if(orderList.size() == 0){
+            JOptionPane.showMessageDialog(this, "Daftar menu harus lebih dari 1.");
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
+        orderList.clear();
+        updateOrderTable();
+    }//GEN-LAST:event_btnResetActionPerformed
 
     /**
      * @param args the command line arguments
@@ -427,6 +442,7 @@ public class orderForm extends javax.swing.JFrame {
     private javax.swing.JButton btnAddItems;
     private javax.swing.JButton btnDeleteItem;
     private javax.swing.JButton btnEditItem;
+    private javax.swing.JButton btnReset;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton5;
     private javax.swing.JPanel jPanel1;
@@ -443,36 +459,36 @@ public class orderForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void updateOrderList(menu data, int quantityToAdd) {
-        detail_menu existData = null;
-        for (detail_menu detail : orderList) {
-            if (detail.Menu.nama.equals(data.nama)) {
+        detailMenu existData = null;
+        for (detailMenu detail : orderList) {
+            if (detail.getMenu().getNama().equals(data.getNama())) {
                 existData = detail;
                 break;
             }
         }
 
         if (existData == null) {
-            if (quantityToAdd > data.stock) {
+            if (quantityToAdd > data.getStock()) {
                 JOptionPane.showMessageDialog(null,
-                        "Jumlah melebihi stok yang tersedia. Jumlah akan diatur ke stok maksimum (" + data.stock + ").",
+                        "Jumlah melebihi stok yang tersedia. Jumlah akan diatur ke stok maksimum (" + data.getStock() + ").",
                         "Peringatan Stok",
                         JOptionPane.WARNING_MESSAGE);
-                quantityToAdd = data.stock;
+                quantityToAdd = data.getStock();
             }
 
-            detail_menu detail = new detail_menu(data, quantityToAdd);
+            detailMenu detail = new detailMenu(data, quantityToAdd);
             orderList.add(detail);
         } else {
-            int totalQuantity = existData.quantity + quantityToAdd;
+            int totalQuantity = existData.getQuantity() + quantityToAdd;
 
-            if (totalQuantity > data.stock) {
+            if (totalQuantity > data.getStock()) {
                 JOptionPane.showMessageDialog(null,
-                        "Jumlah melebihi stok yang tersedia. Jumlah akan diatur ke stok maksimum (" + data.stock + ").",
+                        "Jumlah melebihi stok yang tersedia. Jumlah akan diatur ke stok maksimum (" + data.getStock() + ").",
                         "Peringatan Stok",
                         JOptionPane.WARNING_MESSAGE);
-                existData.quantity = data.stock;
+                existData.setQuantity(data.getStock());
             } else {
-                existData.quantity += quantityToAdd;
+                existData.setQuantity(totalQuantity);
             }
 
             existData.calculateTotal();
@@ -486,22 +502,20 @@ public class orderForm extends javax.swing.JFrame {
         tableOrderModel.setRowCount(0);
 
         int total = 0;
-        for (detail_menu detail : orderList) {
+        for (detailMenu detail : orderList) {
             Object[] rowData = {
-                detail.Menu.nama,
-                detail.quantity,
-                new lib.formatCurrency().format(detail.Menu.harga),
-                new lib.formatCurrency().format(detail.total)
+                detail.getMenu().getNama(),
+                detail.getQuantity(),
+                new lib.formatCurrency().format(detail.getMenu().getHarga()),
+                new lib.formatCurrency().format(detail.getTotal())
             };
-            tableOrderModel.addRow(rowData); // Add row to table
-            total += detail.total; // Accumulate total
+            tableOrderModel.addRow(rowData);
+            total += detail.getTotal();
         }
 
-        // Align center table
         for (int i = 0; i < tableOrder.getColumnCount(); i++) {
             DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
             centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-
             tableOrder.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
@@ -522,21 +536,18 @@ public class orderForm extends javax.swing.JFrame {
             }
 
             for (menu Menu : menuList) {
-                tableMenuModel.addRow(new Object[]{Menu.id, Menu.nama, Menu.stock, new formatCurrency().format(Menu.harga)});
+                tableMenuModel.addRow(new Object[]{Menu.getId(), Menu.getNama(), Menu.getStock(), new formatCurrency().format(Menu.getHarga())});
             }
 
-            // Align center table
             for (int i = 0; i < tableMenu.getColumnCount(); i++) {
                 DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
                 centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
-
                 tableMenu.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
-            
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
+
         updateOrderTable();
     }
 }

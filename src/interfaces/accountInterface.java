@@ -5,13 +5,19 @@
  */
 package interfaces;
 
-import models.account;
-import java.sql.SQLException;
-
 /**
  *
  * @author nanda
  */
 public interface accountInterface {
-    account insert(account o) throws SQLException;
+    void login();
+    String getEmail();
+    String getPassword();
+    String getUsername();
+    String getRole();
+    
+    void setEmail(String email);
+    void setPassword(String password);
+    void setUsername(String username);
+    void setRole(String role);
 }

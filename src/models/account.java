@@ -6,18 +6,19 @@ package models;
 
 import gui.debug;
 import gui.mainMenu;
+import interfaces.accountInterface;
 import lib.validasiException;
 
 /**
  *
  * @author nanda
  */
-public class account {
-    public String email;
-    public String password;
-    public String username;
-    public String role;
-    
+public class account implements accountInterface{
+    private String email;
+    private String password;
+    private String username;
+    private String role;
+
     public account(String email, String password, String username, String role) {
         this.email = email;
         this.password = password;
@@ -25,11 +26,52 @@ public class account {
         this.role = role;
     }
 
+    @Override
     public void login() {
-        if (this.role.matches("admin")) {
+        if (this.role.equalsIgnoreCase("admin")) {
             new debug().setVisible(true);
+        } else {
+            new mainMenu().setVisible(true);
         }
+    }
 
-        new mainMenu().setVisible(true);
+    @Override
+    public String getEmail() {
+        return this.email;
+    }
+
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getUsername() {
+        return this.username;
+    }
+
+    @Override
+    public String getRole() {
+        return this.role;
+    }
+    
+    @Override
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    @Override
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Override
+    public void setRole(String role) {
+        this.role = role;
     }
 }
