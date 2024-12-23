@@ -152,10 +152,10 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JLabel welcomeText;
     // End of variables declaration//GEN-END:variables
     private void init() {
-        welcomeText.setText(String.format("Selamat datang, %s.", akun.username));
+        welcomeText.setText(String.format("Selamat datang, %s.", akun.getUsername()));
         welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
         
-        if(!akun.role.matches("admin")){
+        if(!akun.getRole().matches("admin")){
             btnManageMenu.setVisible(false);
             btnManagePesanan.setVisible(false);
         }
