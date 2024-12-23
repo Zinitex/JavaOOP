@@ -28,7 +28,7 @@ public class orderForm extends javax.swing.JFrame {
 
     private DefaultTableModel tableMenuModel, tableOrderModel;
 
-    private Map<String, detail_menu> orderList = new HashMap<>();
+    private ArrayList<detail_menu> orderList = new ArrayList<>();
     private ArrayList<menu> menuList = new ArrayList<>();
 
     /**
@@ -73,11 +73,11 @@ public class orderForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nama", "Deskripsi", "Harga"
+                "ID", "Nama", "Stock", "Harga"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -94,6 +94,7 @@ public class orderForm extends javax.swing.JFrame {
         scroll.setViewportView(tableMenu);
         if (tableMenu.getColumnModel().getColumnCount() > 0) {
             tableMenu.getColumnModel().getColumn(0).setMaxWidth(30);
+            tableMenu.getColumnModel().getColumn(2).setMaxWidth(75);
         }
 
         btnAddItem.setText("Tambah");
@@ -270,10 +271,8 @@ public class orderForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pilih menu yang tersedia.");
             return;
         }
-        
-        String name = (String) tableOrder.getValueAt(selectedRow, 0);
-        orderList.remove(name);
-        
+
+        orderList.remove(selectedRow);
         updateOrderTable();
     }//GEN-LAST:event_btnDeleteItemActionPerformed
 
@@ -283,7 +282,7 @@ public class orderForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pilih menu yang tersedia.");
             return;
         }
-
+//
         String quantityText = JOptionPane.showInputDialog(this, "Masukkan jumlah yang ingin dimasukkan:");
         if (quantityText != null && !quantityText.isEmpty()) {
             try {
@@ -309,9 +308,8 @@ public class orderForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Pilih menu yang tersedia.");
             return;
         }
-        
-        String name = (String) tableOrder.getValueAt(selectedRow, 0);
-        detail_menu data = orderList.get(name);
+
+        detail_menu data = orderList.get(selectedRow);
         
         String quantityText = JOptionPane.showInputDialog(this, "Masukkan jumlah yang ingin dimasukkan:",data.quantity);
         if (quantityText != null && !quantityText.isEmpty()) {
@@ -352,10 +350,18 @@ public class orderForm extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void updateOrderList(menu data, int quantityToAdd) {
-        detail_menu existData = orderList.get(data.nama);
+
+        detail_menu existData = null;
+        for (detail_menu detail : orderList) {
+            if (detail.Menu.nama.equals(data.nama)) {
+                existData = detail;
+                break;
+            }
+        }
+
         if (existData == null) {
             detail_menu detail = new detail_menu(data, quantityToAdd);
-            this.orderList.put(data.nama, detail);
+            orderList.add(detail);
         } else {
             existData.quantity += quantityToAdd;
             existData.calculateTotal();
@@ -369,12 +375,15 @@ public class orderForm extends javax.swing.JFrame {
         tableOrderModel.setRowCount(0);
 
         int total = 0;
-        for (Map.Entry<String, detail_menu> entry : orderList.entrySet()) {
-            detail_menu detail = entry.getValue();
-
-            Object[] rowData = {detail.Menu.nama, detail.quantity, detail.Menu.harga, new lib.formatCurrency().format(detail.total)};
-            tableOrderModel.addRow(rowData);
-            total += detail.total;
+        for (detail_menu detail : orderList) {
+            Object[] rowData = {
+                detail.Menu.nama,
+                detail.quantity,
+                detail.Menu.harga,
+                new lib.formatCurrency().format(detail.total)
+            };
+            tableOrderModel.addRow(rowData); // Add row to table
+            total += detail.total; // Accumulate total
         }
 
         // Align center table
@@ -384,7 +393,7 @@ public class orderForm extends javax.swing.JFrame {
 
             tableOrder.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
-        
+
         txtTotal.setText(String.format("Total : %s", new formatCurrency().format(total)));
     }
 
@@ -397,12 +406,12 @@ public class orderForm extends javax.swing.JFrame {
             ResultSet rs = st.executeQuery();
 
             while (rs.next()) {
-                menu Menu = new menu(rs.getInt("id"), rs.getString("nama"), rs.getString("desc"), rs.getInt("harga"));
+                menu Menu = new menu(rs.getInt("id"), rs.getString("nama"), rs.getInt("stock"), rs.getInt("harga"));
                 menuList.add(Menu);
             }
 
             for (menu Menu : menuList) {
-                tableMenuModel.addRow(new Object[]{Menu.id, Menu.nama, Menu.desc, new formatCurrency().format(Menu.harga)});
+                tableMenuModel.addRow(new Object[]{Menu.id, Menu.nama, Menu.stock, new formatCurrency().format(Menu.harga)});
             }
 
             // Align center table
