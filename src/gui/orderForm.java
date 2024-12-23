@@ -533,10 +533,10 @@ public class orderForm extends javax.swing.JFrame {
                 tableMenu.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
             
-            updateOrderTable();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        txtTotal.setText(String.format("Total : %s", 0));
+        
+        updateOrderTable();
     }
 }
