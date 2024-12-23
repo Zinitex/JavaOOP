@@ -10,6 +10,7 @@ import models.account;
 import java.awt.Color;
 import java.sql.*;
 import tubes.TUBES;
+import static tubes.TUBES.akun;
 
 /**
  *
@@ -180,23 +181,28 @@ public class loginForm extends javax.swing.JFrame {
             }
 
             PreparedStatement st = database.getConnection().prepareStatement(
-                    "SELECT email, password, role, name FROM users WHERE email = ? AND password = ?");
+                    "SELECT id, email, password, role, name FROM users WHERE email = ? AND password = ?");
             st.setString(1, email);
             st.setString(2, password);
 
             ResultSet rs = st.executeQuery();
 
             if (rs.next()) {
+                int id = rs.getInt("id");
                 String userEmail = rs.getString("email");
                 String userPassword = rs.getString("password");
                 String role = rs.getString("role");
                 String name = rs.getString("name");
 
+                System.out.println(rs.getInt("id"));
                 System.out.println(rs.getString("email"));
                 System.out.println(rs.getString("password"));
                 System.out.println(rs.getString("role"));
                 System.out.println(rs.getString("name"));
-                new account(userEmail, userPassword, name, role).login();
+               
+                akun = new account(userEmail, userPassword, name, role,id);
+                akun.login();
+
                 this.setVisible(false);
             } else {
                 throw new validasiException("Invalid email or password. Please try again.");
@@ -206,9 +212,11 @@ public class loginForm extends javax.swing.JFrame {
             st.close();
 
         } catch (validasiException e) {
+            System.out.println(e.getMessage());
             textInfo.setText(e.getMessage());
             textInfo.setForeground(Color.red);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
             textInfo.setText(e.getMessage());
             textInfo.setForeground(Color.red);
         }

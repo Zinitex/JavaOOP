@@ -12,12 +12,12 @@ import java.sql.*;
  *
  * @author nanda
  */
-public class debug extends javax.swing.JFrame {
+public class Debug extends javax.swing.JFrame {
 
     /**
      * Creates new form Debug
      */
-    public debug() {
+    public Debug() {
         initComponents();
     }
 

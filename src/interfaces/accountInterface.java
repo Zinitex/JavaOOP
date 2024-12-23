@@ -11,11 +11,13 @@ package interfaces;
  */
 public interface accountInterface {
     void login();
+    int getId();
     String getEmail();
     String getPassword();
     String getUsername();
     String getRole();
     
+    void setId(int id);
     void setEmail(String email);
     void setPassword(String password);
     void setUsername(String username);

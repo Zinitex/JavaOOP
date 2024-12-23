@@ -5,6 +5,7 @@
 package tubes;
 
 
+import gui.loginForm;
 import lib.database;
 import models.account;
 import java.sql.Connection;
@@ -31,9 +32,8 @@ public class TUBES {
 
 //        new loginForm().setVisible(true);
 //      bypass login 
-
-        akun = new account("user@example.com", "password", "nanda", "admin");
-        akun.login();
+      akun = new account("admin@restoran.com", "admin123", "nanda", "admin",2);
+      akun.login();
     }
 
     public boolean loadData() {

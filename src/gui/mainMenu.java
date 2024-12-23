@@ -63,6 +63,11 @@ public class mainMenu extends javax.swing.JFrame {
         });
 
         btnHistory.setText("Riwayat Pesanan");
+        btnHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnHistoryActionPerformed(evt);
+            }
+        });
 
         btnManagePesanan.setText("Manage Pesanan");
         btnManagePesanan.addActionListener(new java.awt.event.ActionListener() {
@@ -135,6 +140,11 @@ public class mainMenu extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_btnManagePesananActionPerformed
 
+    private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
+        new historyOrder(this).setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnHistoryActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -155,6 +165,7 @@ public class mainMenu extends javax.swing.JFrame {
         welcomeText.setText(String.format("Selamat datang, %s.", akun.getUsername()));
         welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
         
+        System.out.println(akun.getRole());
         if(!akun.getRole().matches("admin")){
             btnManageMenu.setVisible(false);
             btnManagePesanan.setVisible(false);

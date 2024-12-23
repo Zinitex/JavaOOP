@@ -13,6 +13,8 @@ import models.detailMenu;
 import models.menu;
 import javax.swing.table.DefaultTableCellRenderer;
 import lib.formatter;
+import tubes.TUBES;
+import static tubes.TUBES.akun;
 import static tubes.TUBES.orderList;
 
 /**
@@ -21,7 +23,7 @@ import static tubes.TUBES.orderList;
  */
 public class orderForm extends javax.swing.JFrame {
 
-    PreparedStatement st;
+    PreparedStatement st, st2;
     private mainMenu parent;
 
     private DefaultTableModel tableMenuModel, tableOrderModel;
@@ -48,7 +50,7 @@ public class orderForm extends javax.swing.JFrame {
 
         jPanel2 = new javax.swing.JPanel();
         jPanel4 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        btnReturn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         testPanel = new javax.swing.JPanel();
         scroll = new javax.swing.JScrollPane();
@@ -63,7 +65,7 @@ public class orderForm extends javax.swing.JFrame {
         txtTotal = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnConfirm = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -81,10 +83,10 @@ public class orderForm extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(153, 204, 255));
 
-        jButton5.setText("←");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnReturn.setText("←");
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnReturnActionPerformed(evt);
             }
         });
 
@@ -94,14 +96,14 @@ public class orderForm extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
         );
 
@@ -114,14 +116,14 @@ public class orderForm extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nama", "Stock", "Harga"
+                "Nama", "Stock", "Harga"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
+                java.lang.Boolean.class, java.lang.String.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -134,8 +136,7 @@ public class orderForm extends javax.swing.JFrame {
         });
         scroll.setViewportView(tableMenu);
         if (tableMenu.getColumnModel().getColumnCount() > 0) {
-            tableMenu.getColumnModel().getColumn(0).setMaxWidth(30);
-            tableMenu.getColumnModel().getColumn(2).setMaxWidth(75);
+            tableMenu.getColumnModel().getColumn(1).setMaxWidth(75);
         }
 
         btnAddItem.setText("Tambah");
@@ -286,10 +287,10 @@ public class orderForm extends javax.swing.JFrame {
 
         jPanel5.setBackground(new java.awt.Color(153, 204, 255));
 
-        jButton1.setText("Konfirmasi Order");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnConfirm.setText("Konfirmasi Order");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnConfirmActionPerformed(evt);
             }
         });
 
@@ -299,14 +300,14 @@ public class orderForm extends javax.swing.JFrame {
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(716, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -417,16 +418,59 @@ public class orderForm extends javax.swing.JFrame {
         updateOrderTable();
     }//GEN-LAST:event_btnEditItemActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
         this.setVisible(false);
         new mainMenu().setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnReturnActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        if(orderList.size() == 0){
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        if (orderList.size() == 0) {
             JOptionPane.showMessageDialog(this, "Daftar menu harus lebih dari 1.");
+            return;
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+
+        try {
+            st = database.getConnection().prepareStatement("INSERT INTO pemesanan (user_id) VALUES (?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            st.setInt(1, akun.getId());
+            
+            int rowsAffected = st.executeUpdate();
+
+            if (rowsAffected > 0) {
+                ResultSet rs = st.getGeneratedKeys();
+                if (rs.next()) {
+                    int uid = rs.getInt(1);
+                    
+                    for (detailMenu detail : orderList) {
+                        int itemId = detail.getMenu().getId();
+                        int quantity = detail.getQuantity();
+                        
+                        st2 = database.getConnection().prepareStatement("INSERT INTO detailpemesanan (pemesanan_id, menu_id, jumlah) VALUES (?,?,?)");
+                        st2.setInt(1, uid);
+                        st2.setInt(2, itemId);
+                        st2.setInt(3, quantity);
+                        
+                        st2.executeUpdate();
+                    }
+                    
+                    st2.close();
+                }
+                rs.close();
+            }
+
+            st.close();
+            
+            orderList.clear();
+            updateOrderTable();
+            
+            JOptionPane.showMessageDialog(this, "Pesanan terkonfirmasi, status pemesanan dapat dilihat pada menu Riwayat Pesanan.");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        
+    }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
         orderList.clear();
@@ -440,11 +484,11 @@ public class orderForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddItem;
     private javax.swing.JButton btnAddItems;
+    private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnDeleteItem;
     private javax.swing.JButton btnEditItem;
     private javax.swing.JButton btnReset;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton5;
+    private javax.swing.JButton btnReturn;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -519,7 +563,7 @@ public class orderForm extends javax.swing.JFrame {
             tableOrder.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
-        txtTotal.setText(String.format("Total : %s",  formatter.currency(total)));
+        txtTotal.setText(String.format("Total : %s", formatter.currency(total)));
     }
 
     public void init() {
@@ -536,7 +580,7 @@ public class orderForm extends javax.swing.JFrame {
             }
 
             for (menu Menu : menuList) {
-                tableMenuModel.addRow(new Object[]{Menu.getId(), Menu.getNama(), Menu.getStock(), formatter.currency(Menu.getHarga())});
+                tableMenuModel.addRow(new Object[]{Menu.getNama(), Menu.getStock(), formatter.currency(Menu.getHarga())});
             }
 
             for (int i = 0; i < tableMenu.getColumnCount(); i++) {

@@ -4,7 +4,7 @@
  */
 package models;
 
-import gui.debug;
+import gui.Debug;
 import gui.mainMenu;
 import interfaces.accountInterface;
 import lib.validasiException;
@@ -14,22 +14,24 @@ import lib.validasiException;
  * @author nanda
  */
 public class account implements accountInterface{
+    private int id;
     private String email;
     private String password;
     private String username;
     private String role;
 
-    public account(String email, String password, String username, String role) {
+    public account(String email, String password, String username, String role, int id) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.role = role;
+        this.id = id;
     }
 
     @Override
     public void login() {
         if (this.role.equals("admin")) {
-            new debug().setVisible(true);
+            new Debug().setVisible(true);
         }
         new mainMenu().setVisible(true);
     }
@@ -72,5 +74,15 @@ public class account implements accountInterface{
     @Override
     public void setRole(String role) {
         this.role = role;
+    }
+
+    @Override
+    public int getId() {
+        return this.id;
+    }
+
+    @Override
+    public void setId(int id) {
+        this.id = id;
     }
 }
