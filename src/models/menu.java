@@ -9,7 +9,6 @@ package models;
  * @author nanda
  */
 public class menu {
-
     public menu(int id, String nama, int stock, int harga) {
         this.id = id;
         this.nama = nama;
@@ -20,6 +19,4 @@ public class menu {
     public String nama;
     public int stock;
     public int harga;
-    
-    
 }

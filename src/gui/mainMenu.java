@@ -6,20 +6,18 @@ package gui;
 
 import javax.swing.SwingConstants;
 import models.account;
+import tubes.TUBES;
 
 /**
  *
  * @author nanda
  */
 public class mainMenu extends javax.swing.JFrame {
-    private account akun;
 
     /**
      * Creates new form mainMenu
      */
-    public mainMenu(account akun) {
-        this.akun = akun;
-        
+    public mainMenu() {
         initComponents();
         init();
         setLocationRelativeTo(null);
@@ -154,11 +152,12 @@ public class mainMenu extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel welcomeText;
     // End of variables declaration//GEN-END:variables
-    private void init(){
-        welcomeText.setText(String.format("Selamat datang, %s.", akun.username));
+    private void init() {
+        welcomeText.setText(String.format("Selamat datang, %s.", TUBES.akun.username));
+
         welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
         
-        if(!akun.role.matches("admin")){
+        if(!TUBES.akun.role.matches("admin")){
             btnManageMenu.setVisible(false);
             btnManagePesanan.setVisible(false);
         }

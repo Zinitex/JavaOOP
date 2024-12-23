@@ -24,11 +24,12 @@ public class account {
         this.username = username;
         this.role = role;
     }
-    
-    public void login(){
-        if(this.role.matches("admin")){
+
+    public void login() {
+        if (this.role.matches("admin")) {
             new debug().setVisible(true);
         }
-        new mainMenu(this).setVisible(true);
+
+        new mainMenu().setVisible(true);
     }
 }

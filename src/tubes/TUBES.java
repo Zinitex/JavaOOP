@@ -20,18 +20,22 @@ import javax.swing.table.DefaultTableModel;
  * @author nanda
  */
 public class TUBES {
+
+    public static account akun;
+
     public static void main(String[] args) {
         TUBES app = new TUBES();
 
         if (!app.loadData()) {
             System.out.println("Failed to load data. Exiting program.");
-            return; 
+            return;
         }
 
 //        new loginForm().setVisible(true);
-        
 //      bypass login 
-        new account("nanda@gmail.com", "admin123","nanda", "admin").login();
+
+        akun = new account("user@example.com", "password", "nanda", "admin");
+        akun.login();
     }
 
     public boolean loadData() {
@@ -46,4 +50,3 @@ public class TUBES {
         }
     }
 }
-
