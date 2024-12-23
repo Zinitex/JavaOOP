@@ -60,6 +60,7 @@ public class orderForm extends javax.swing.JFrame {
         tableOrder = new javax.swing.JTable();
         btnDeleteItem = new javax.swing.JButton();
         btnEditItem = new javax.swing.JButton();
+        txtTotal = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -180,6 +181,10 @@ public class orderForm extends javax.swing.JFrame {
             }
         });
 
+        txtTotal.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtTotal.setForeground(new java.awt.Color(17, 17, 17));
+        txtTotal.setText("Total : %s");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -192,21 +197,27 @@ public class orderForm extends javax.swing.JFrame {
                         .addComponent(btnEditItem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDeleteItem)
-                        .addContainerGap(230, Short.MAX_VALUE))
+                        .addGap(0, 230, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(txtTotal)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnDeleteItem)
-                    .addComponent(btnEditItem))
-                .addContainerGap(8, Short.MAX_VALUE))
+                    .addComponent(btnEditItem)
+                    .addComponent(btnDeleteItem))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtTotal)
+                .addContainerGap(73, Short.MAX_VALUE))
         );
 
         jButton5.setText("←");
@@ -236,7 +247,7 @@ public class orderForm extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(testPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(22, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -337,6 +348,7 @@ public class orderForm extends javax.swing.JFrame {
     private javax.swing.JTable tableMenu;
     private javax.swing.JTable tableOrder;
     private javax.swing.JPanel testPanel;
+    private javax.swing.JLabel txtTotal;
     // End of variables declaration//GEN-END:variables
 
     private void updateOrderList(menu data, int quantityToAdd) {
@@ -356,11 +368,13 @@ public class orderForm extends javax.swing.JFrame {
         tableOrderModel = (DefaultTableModel) tableOrder.getModel();
         tableOrderModel.setRowCount(0);
 
+        int total = 0;
         for (Map.Entry<String, detail_menu> entry : orderList.entrySet()) {
             detail_menu detail = entry.getValue();
 
             Object[] rowData = {detail.Menu.nama, detail.quantity, detail.Menu.harga, new lib.formatCurrency().format(detail.total)};
             tableOrderModel.addRow(rowData);
+            total += detail.total;
         }
 
         // Align center table
@@ -370,6 +384,8 @@ public class orderForm extends javax.swing.JFrame {
 
             tableOrder.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
+        
+        txtTotal.setText(String.format("Total : %s", new formatCurrency().format(total)));
     }
 
     public void init() {
@@ -396,10 +412,9 @@ public class orderForm extends javax.swing.JFrame {
 
                 tableMenu.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
             }
-
-            System.out.println("Connected to the database.");
         } catch (Exception e) {
             e.printStackTrace();
         }
+        txtTotal.setText(String.format("Total : %s.", 0));
     }
 }
