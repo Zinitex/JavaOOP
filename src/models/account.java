@@ -28,11 +28,10 @@ public class account implements accountInterface{
 
     @Override
     public void login() {
-        if (this.role.equalsIgnoreCase("admin")) {
+        if (this.role.equals("admin")) {
             new debug().setVisible(true);
-        } else {
-            new mainMenu().setVisible(true);
         }
+        new mainMenu().setVisible(true);
     }
 
     @Override

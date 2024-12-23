@@ -12,7 +12,7 @@ import lib.database;
 import models.detailMenu;
 import models.menu;
 import javax.swing.table.DefaultTableCellRenderer;
-import lib.formatCurrency;
+import lib.formatter;
 import static tubes.TUBES.orderList;
 
 /**
@@ -506,8 +506,8 @@ public class orderForm extends javax.swing.JFrame {
             Object[] rowData = {
                 detail.getMenu().getNama(),
                 detail.getQuantity(),
-                new lib.formatCurrency().format(detail.getMenu().getHarga()),
-                new lib.formatCurrency().format(detail.getTotal())
+                formatter.currency(detail.getMenu().getHarga()),
+                formatter.currency(detail.getTotal())
             };
             tableOrderModel.addRow(rowData);
             total += detail.getTotal();
@@ -519,7 +519,7 @@ public class orderForm extends javax.swing.JFrame {
             tableOrder.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
-        txtTotal.setText(String.format("Total : %s", new formatCurrency().format(total)));
+        txtTotal.setText(String.format("Total : %s",  formatter.currency(total)));
     }
 
     public void init() {
@@ -536,7 +536,7 @@ public class orderForm extends javax.swing.JFrame {
             }
 
             for (menu Menu : menuList) {
-                tableMenuModel.addRow(new Object[]{Menu.getId(), Menu.getNama(), Menu.getStock(), new formatCurrency().format(Menu.getHarga())});
+                tableMenuModel.addRow(new Object[]{Menu.getId(), Menu.getNama(), Menu.getStock(), formatter.currency(Menu.getHarga())});
             }
 
             for (int i = 0; i < tableMenu.getColumnCount(); i++) {
