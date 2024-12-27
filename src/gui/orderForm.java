@@ -314,10 +314,10 @@ public class orderForm extends javax.swing.JFrame {
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+            .addGroup(jPanel5Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
-                .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(15, 15, 15))
+                .addComponent(btnConfirm)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -442,45 +442,53 @@ public class orderForm extends javax.swing.JFrame {
             st = database.getConnection().prepareStatement("INSERT INTO pemesanan (user_id) VALUES (?)",
                     Statement.RETURN_GENERATED_KEYS);
             st.setInt(1, akun.getId());
-            
+
             int rowsAffected = st.executeUpdate();
 
             if (rowsAffected > 0) {
                 ResultSet rs = st.getGeneratedKeys();
                 if (rs.next()) {
                     int uid = rs.getInt(1);
-                    
+
                     for (detailMenu detail : akun.orderList) {
                         int itemId = detail.getMenu().getId();
                         int quantity = detail.getQuantity();
-                        
-                        st2 = database.getConnection().prepareStatement("INSERT INTO detailpemesanan (pemesanan_id, menu_id, jumlah) VALUES (?,?,?)");
+
+                        st2 = database.getConnection().prepareStatement(
+                                "INSERT INTO detailpemesanan (pemesanan_id, menu_id, jumlah) VALUES (?,?,?)");
                         st2.setInt(1, uid);
                         st2.setInt(2, itemId);
                         st2.setInt(3, quantity);
-                        
                         st2.executeUpdate();
+
+                        PreparedStatement updateStockStmt = database.getConnection().prepareStatement(
+                                "UPDATE menu SET stock = stock - ? WHERE id = ?");
+                        updateStockStmt.setInt(1, quantity);
+                        updateStockStmt.setInt(2, itemId);
+                        updateStockStmt.executeUpdate();
+                        updateStockStmt.close();
+
+                        menu updatedMenu = menuList.get(itemId);
+                        if (updatedMenu != null) {
+                            updatedMenu.setStock(updatedMenu.getStock() - quantity);
+                        }
                     }
-                    
+
                     st2.close();
                 }
                 rs.close();
             }
 
             st.close();
-            
+
             akun.orderList.clear();
-            updateOrderTable();
-            
+            init();
+
             JOptionPane.showMessageDialog(this, "Pesanan terkonfirmasi, status pemesanan dapat dilihat pada menu Riwayat Pesanan.");
-            
-            akun.loadOrderHistory();
-            
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
@@ -580,6 +588,7 @@ public class orderForm extends javax.swing.JFrame {
 
     public void init() {
         tableMenuModel = (DefaultTableModel) tableMenu.getModel();
+        tableMenuModel.setRowCount(0);
 
         try {
             for (menu Menu : menuList.values()) {

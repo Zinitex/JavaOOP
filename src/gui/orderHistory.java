@@ -277,7 +277,7 @@ public class orderHistory extends javax.swing.JFrame {
                     order.getId(),
                     order.getDate(),
                     totalItems,
-                    order.getStatus(),
+                    formatter.capitalText(order.getStatus()),
                     formatter.currency(totalPrice)
                 });
             }

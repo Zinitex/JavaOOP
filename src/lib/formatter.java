@@ -12,11 +12,19 @@ import java.util.Locale;
  * @author nanda
  */
 public class formatter {
-    public static String currency(int number){
+
+    public static String currency(int number) {
         Locale indonesianLocale = new Locale("id", "ID");
         NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(indonesianLocale);
         String formattedPrice = currencyFormatter.format(number);
-        
+
         return formattedPrice;
+    }
+
+    public static String capitalText(String text) {
+        if (text == null || text.isEmpty()) {
+            return text;
+        }
+        return text.substring(0, 1).toUpperCase() + text.substring(1);
     }
 }

@@ -4,7 +4,6 @@
  */
 package tubes;
 
-
 import gui.loginForm;
 import lib.database;
 import models.account;
@@ -33,17 +32,14 @@ public class TUBES {
 
 //        new loginForm().setVisible(true);
 //      bypass login 
-      akun = new account("admin@restoran.com", "admin123", "nanda", "admin",2);
-      akun.login();
+        akun = new account("admin@restoran.com", "admin123", "nanda", "admin", 2);
+        akun.login();
     }
 
-    public boolean loadData() {
+    public void loadMenu() {
         try {
-            Connection connection = database.getConnection();
-            System.out.println("Connected to the database.");
-
             String query = "SELECT * FROM menu";
-            Statement statement = connection.createStatement();
+            Statement statement = database.getConnection().createStatement();
             ResultSet resultSet = statement.executeQuery(query);
 
             menuList.clear();
@@ -62,6 +58,18 @@ public class TUBES {
             statement.close();
 
             System.out.println("Menu data loaded successfully.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean loadData() {
+        try {
+            Connection connection = database.getConnection();
+            System.out.println("Connected to the database.");
+
+            loadMenu();
+
             return true;
         } catch (Exception e) {
             e.printStackTrace();

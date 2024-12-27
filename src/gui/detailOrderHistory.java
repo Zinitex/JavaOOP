@@ -237,7 +237,7 @@ public class detailOrderHistory extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void init() {
-        txtAccumulate.setText(String.format(": %s", order.getStatus()));
+        txtAccumulate.setText(String.format(": %s", formatter.capitalText(order.getStatus())));
 //        txtTransaction1.setText(String.format(": %s", formatter.formatDate(order.getDate()))); // Format the date appropriately
 
         tableHistoryModel = (DefaultTableModel) tableHistory.getModel();
