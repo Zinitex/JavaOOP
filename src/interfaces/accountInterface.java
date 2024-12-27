@@ -10,7 +10,6 @@ package interfaces;
  * @author nanda
  */
 public interface accountInterface {
-    void login();
     int getId();
     String getEmail();
     String getPassword();

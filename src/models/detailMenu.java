@@ -11,6 +11,7 @@ import interfaces.detailMenuInterface;
  * @author nanda
  */
 public class detailMenu implements detailMenuInterface {
+    private int id;
     private menu Menu; 
     private int quantity;
     private int total;

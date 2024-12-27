@@ -48,8 +48,9 @@ public class mainMenu extends javax.swing.JFrame {
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(153, 204, 255));
+        jPanel1.setPreferredSize(new java.awt.Dimension(560, 470));
 
-        welcomeText.setFont(new java.awt.Font("Inter", 1, 18)); // NOI18N
+        welcomeText.setFont(new java.awt.Font("Inter", 1, 16)); // NOI18N
         welcomeText.setForeground(new java.awt.Color(17, 17, 17));
         welcomeText.setText("Selamat datang %s");
 
@@ -141,7 +142,7 @@ public class mainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnManagePesananActionPerformed
 
     private void btnHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHistoryActionPerformed
-        new historyOrder(this).setVisible(true);
+        new orderHistory(this).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnHistoryActionPerformed
 
@@ -165,7 +166,6 @@ public class mainMenu extends javax.swing.JFrame {
         welcomeText.setText(String.format("Selamat datang, %s.", akun.getUsername()));
         welcomeText.setHorizontalAlignment(SwingConstants.CENTER);
         
-        System.out.println(akun.getRole());
         if(!akun.getRole().matches("admin")){
             btnManageMenu.setVisible(false);
             btnManagePesanan.setVisible(false);

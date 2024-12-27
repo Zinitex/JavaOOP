@@ -6,23 +6,27 @@ package gui;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import lib.database;
 import lib.formatter;
+import static lib.formatter.currency;
 import models.menu;
 import models.orderDetail;
 import tubes.TUBES;
 import static tubes.TUBES.akun;
+import static tubes.TUBES.menuList;
 
 /**
  *
  * @author nanda
  */
-public class historyOrder extends javax.swing.JFrame {
+public class orderHistory extends javax.swing.JFrame {
 
     PreparedStatement st;
     private mainMenu parent;
@@ -31,7 +35,7 @@ public class historyOrder extends javax.swing.JFrame {
     /**
      * Creates new form historyOrder
      */
-    public historyOrder(mainMenu parent) {
+    public orderHistory(mainMenu parent) {
         initComponents();
         setLocationRelativeTo(null);
         this.parent = parent;
@@ -48,44 +52,155 @@ public class historyOrder extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        btnReturn = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tableHistory = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        txtAccumulate = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtTransaction = new javax.swing.JLabel();
+        btnCheck = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jPanel2.setBackground(new java.awt.Color(153, 204, 255));
+
+        btnReturn.setText("←");
+        btnReturn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReturnActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(2, 2, 2))
+        );
+
+        jPanel3.setBackground(new java.awt.Color(153, 204, 255));
 
         tableHistory.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Tanggal", "Jumlah Item", "Status", "Total", "Jumlah Jenis"
+                "Id", "Tanggal", "Jumlah Item", "Status", "Total"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(tableHistory);
+        if (tableHistory.getColumnModel().getColumnCount() > 0) {
+            tableHistory.getColumnModel().getColumn(0).setMaxWidth(30);
+        }
+
+        jLabel1.setBackground(new java.awt.Color(17, 17, 17));
+        jLabel1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(17, 17, 17));
+        jLabel1.setText("Akumulasi pembelian");
+
+        txtAccumulate.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        txtAccumulate.setForeground(new java.awt.Color(17, 17, 17));
+        txtAccumulate.setText(": %s");
+
+        jLabel2.setBackground(new java.awt.Color(17, 17, 17));
+        jLabel2.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(17, 17, 17));
+        jLabel2.setText("Jumlah transaksi");
+
+        txtTransaction.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        txtTransaction.setForeground(new java.awt.Color(17, 17, 17));
+        txtTransaction.setText(": %s");
+
+        btnCheck.setText("Check detail pembelian");
+        btnCheck.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCheckActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTransaction)
+                            .addComponent(txtAccumulate))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnCheck))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
+                        .addGap(15, 15, 15))))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(txtAccumulate))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(txtTransaction))
+                .addGap(15, 15, 15)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(btnCheck)
+                .addContainerGap(15, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(274, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(57, 57, 57)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 351, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, 0)
+                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,68 +217,80 @@ public class historyOrder extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturnActionPerformed
+        this.setVisible(false);
+        new mainMenu().setVisible(true);
+    }//GEN-LAST:event_btnReturnActionPerformed
+
+    private void btnCheckActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCheckActionPerformed
+        int selectedRow = tableHistory.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Please select an order to view details.", "Error", JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        int selectedOrderId = (int) tableHistoryModel.getValueAt(selectedRow, 0);
+
+        orderDetail selectedOrder = akun.orderHistory.get(selectedOrderId);
+
+        if (selectedOrder == null) {
+            JOptionPane.showMessageDialog(this, "Order not found.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        this.setVisible(false);
+        new detailOrderHistory(selectedOrder).setVisible(true);
+    }//GEN-LAST:event_btnCheckActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCheck;
+    private javax.swing.JButton btnReturn;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableHistory;
+    private javax.swing.JLabel txtAccumulate;
+    private javax.swing.JLabel txtTransaction;
     // End of variables declaration//GEN-END:variables
 
     private void init() {
+        if (!akun.loadOrderHistory()) {
+            return;
+        }
+
         tableHistoryModel = (DefaultTableModel) tableHistory.getModel();
+        int totalAccumulate = 0;
+        int totalTransactions = 0;
+
         try {
-            // Combined query to fetch pemesanan and related details
-            String query = """
-                SELECT 
-                    p.id AS pemesanan_id,
-                    p.tanggal,
-                    p.status,
-                    m.id AS menu_id,
-                    m.harga AS menu_harga,
-                    dp.jumlah AS menu_quantity
-                FROM 
-                    pemesanan p
-                JOIN 
-                    detailpemesanan dp ON p.id = dp.pemesanan_id
-                JOIN 
-                    menu m ON dp.menu_id = m.id
-                WHERE 
-                    p.user_id = ?;
-            """;
+            for (orderDetail order : akun.orderHistory.values()) {
+                int totalItems = order.getTotalItem();
+                int totalPrice = order.getTotalPrice();
+                totalAccumulate += totalPrice;
+                totalTransactions++;
 
-            PreparedStatement st = database.getConnection().prepareStatement(query);
-            st.setInt(1, akun.getId());
-            ResultSet rs = st.executeQuery();
-
-            Map<Integer, orderDetail> orderDetailMap = new HashMap<>();
-
-            while (rs.next()) {
-                int orderId = rs.getInt("pemesanan_id");
-                Date date = rs.getDate("tanggal");
-                String status = rs.getString("status");
-                int menuPrice = rs.getInt("menu_harga");
-                int menuQuantity = rs.getInt("menu_quantity");
-
-                orderDetail detail = orderDetailMap.getOrDefault(
-                        orderId,
-                        new orderDetail(orderId, date, status)
-                );
-                detail.addMenu(menuPrice, menuQuantity);
-                orderDetailMap.put(orderId, detail);
-            }
-
-            for (orderDetail detail : orderDetailMap.values()) {
                 tableHistoryModel.addRow(new Object[]{
-                    detail.getDate(),
-                    detail.getItemCount(),
-                    detail.getStatus(),
-                    detail.getTotalPrice()
+                    order.getId(),
+                    order.getDate(),
+                    totalItems,
+                    order.getStatus(),
+                    formatter.currency(totalPrice)
                 });
             }
 
+            txtAccumulate.setText(String.format(": %s", formatter.currency(totalAccumulate)));
+            txtTransaction.setText(String.format(": %s", totalTransactions));
+            for (int i = 0; i < tableHistory.getColumnCount(); i++) {
+                DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+                centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+                tableHistory.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

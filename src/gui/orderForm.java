@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableCellRenderer;
 import lib.formatter;
 import tubes.TUBES;
 import static tubes.TUBES.akun;
-import static tubes.TUBES.orderList;
+import static tubes.TUBES.menuList;
 
 /**
  *
@@ -27,7 +27,6 @@ public class orderForm extends javax.swing.JFrame {
     private mainMenu parent;
 
     private DefaultTableModel tableMenuModel, tableOrderModel;
-    private ArrayList<menu> menuList = new ArrayList<>();
 
     /**
      * Creates new form oderForm
@@ -64,6 +63,7 @@ public class orderForm extends javax.swing.JFrame {
         btnEditItem = new javax.swing.JButton();
         txtTotal = new javax.swing.JLabel();
         btnReset = new javax.swing.JButton();
+        txtTotal1 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         btnConfirm = new javax.swing.JButton();
 
@@ -95,14 +95,14 @@ public class orderForm extends javax.swing.JFrame {
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(btnReturn, javax.swing.GroupLayout.PREFERRED_SIZE, 60, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(847, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addComponent(btnReturn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(2, 2, 2))
         );
@@ -158,14 +158,14 @@ public class orderForm extends javax.swing.JFrame {
         testPanelLayout.setHorizontalGroup(
             testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(testPanelLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
+                .addGap(15, 15, 15)
                 .addGroup(testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(scroll, javax.swing.GroupLayout.PREFERRED_SIZE, 476, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(testPanelLayout.createSequentialGroup()
                         .addComponent(btnAddItem)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnAddItems)))
-                .addContainerGap(10, Short.MAX_VALUE))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
         testPanelLayout.setVerticalGroup(
             testPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -226,7 +226,7 @@ public class orderForm extends javax.swing.JFrame {
 
         txtTotal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         txtTotal.setForeground(new java.awt.Color(17, 17, 17));
-        txtTotal.setText("Total : %s");
+        txtTotal.setText(": %s");
 
         btnReset.setText("Reset");
         btnReset.addActionListener(new java.awt.event.ActionListener() {
@@ -235,25 +235,32 @@ public class orderForm extends javax.swing.JFrame {
             }
         });
 
+        txtTotal1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txtTotal1.setForeground(new java.awt.Color(17, 17, 17));
+        txtTotal1.setText("Total");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(btnEditItem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnDeleteItem)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnReset))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
-                .addGap(10, 10, 10))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtTotal)
-                .addContainerGap())
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtTotal1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTotal))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(8, 8, 8)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(btnEditItem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnDeleteItem)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnReset))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))))
+                .addGap(15, 15, 15))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -266,7 +273,9 @@ public class orderForm extends javax.swing.JFrame {
                     .addComponent(btnDeleteItem)
                     .addComponent(btnReset))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTotal)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtTotal)
+                    .addComponent(txtTotal1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -299,16 +308,16 @@ public class orderForm extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(716, Short.MAX_VALUE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnConfirm, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addGap(7, 7, 7)
                 .addComponent(btnConfirm, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -340,7 +349,7 @@ public class orderForm extends javax.swing.JFrame {
             return;
         }
 
-        menu data = menuList.get(selectedRow);
+        menu data = new ArrayList<>(menuList.values()).get(selectedRow);
         updateOrderList(data, 1);
     }//GEN-LAST:event_btnAddItemActionPerformed
 
@@ -351,7 +360,7 @@ public class orderForm extends javax.swing.JFrame {
             return;
         }
 
-        orderList.remove(selectedRow);
+        akun.orderList.remove(selectedRow);
         updateOrderTable();
     }//GEN-LAST:event_btnDeleteItemActionPerformed
 
@@ -372,7 +381,7 @@ public class orderForm extends javax.swing.JFrame {
                     return;
                 }
 
-                menu data = menuList.get(selectedRow);
+                menu data = new ArrayList<>(menuList.values()).get(selectedRow);
                 updateOrderList(data, quantityToAdd);
 
             } catch (NumberFormatException ex) {
@@ -388,7 +397,7 @@ public class orderForm extends javax.swing.JFrame {
             return;
         }
 
-        detailMenu data = orderList.get(selectedRow);
+        detailMenu data = akun.orderList.get(selectedRow);
 
         String quantityText = JOptionPane.showInputDialog(this, "Masukkan jumlah yang ingin dimasukkan:", data.getQuantity());
         if (quantityText != null && !quantityText.isEmpty()) {
@@ -424,7 +433,7 @@ public class orderForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnReturnActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
-        if (orderList.size() == 0) {
+        if (akun.orderList.size() == 0) {
             JOptionPane.showMessageDialog(this, "Daftar menu harus lebih dari 1.");
             return;
         }
@@ -441,7 +450,7 @@ public class orderForm extends javax.swing.JFrame {
                 if (rs.next()) {
                     int uid = rs.getInt(1);
                     
-                    for (detailMenu detail : orderList) {
+                    for (detailMenu detail : akun.orderList) {
                         int itemId = detail.getMenu().getId();
                         int quantity = detail.getQuantity();
                         
@@ -460,10 +469,12 @@ public class orderForm extends javax.swing.JFrame {
 
             st.close();
             
-            orderList.clear();
+            akun.orderList.clear();
             updateOrderTable();
             
             JOptionPane.showMessageDialog(this, "Pesanan terkonfirmasi, status pemesanan dapat dilihat pada menu Riwayat Pesanan.");
+            
+            akun.loadOrderHistory();
             
         } catch (Exception e) {
             e.printStackTrace();
@@ -473,7 +484,7 @@ public class orderForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConfirmActionPerformed
 
     private void btnResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnResetActionPerformed
-        orderList.clear();
+        akun.orderList.clear();
         updateOrderTable();
     }//GEN-LAST:event_btnResetActionPerformed
 
@@ -500,11 +511,12 @@ public class orderForm extends javax.swing.JFrame {
     private javax.swing.JTable tableOrder;
     private javax.swing.JPanel testPanel;
     private javax.swing.JLabel txtTotal;
+    private javax.swing.JLabel txtTotal1;
     // End of variables declaration//GEN-END:variables
 
     private void updateOrderList(menu data, int quantityToAdd) {
         detailMenu existData = null;
-        for (detailMenu detail : orderList) {
+        for (detailMenu detail : akun.orderList) {
             if (detail.getMenu().getNama().equals(data.getNama())) {
                 existData = detail;
                 break;
@@ -521,7 +533,7 @@ public class orderForm extends javax.swing.JFrame {
             }
 
             detailMenu detail = new detailMenu(data, quantityToAdd);
-            orderList.add(detail);
+            akun.orderList.add(detail);
         } else {
             int totalQuantity = existData.getQuantity() + quantityToAdd;
 
@@ -546,7 +558,7 @@ public class orderForm extends javax.swing.JFrame {
         tableOrderModel.setRowCount(0);
 
         int total = 0;
-        for (detailMenu detail : orderList) {
+        for (detailMenu detail : akun.orderList) {
             Object[] rowData = {
                 detail.getMenu().getNama(),
                 detail.getQuantity(),
@@ -563,24 +575,19 @@ public class orderForm extends javax.swing.JFrame {
             tableOrder.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
         }
 
-        txtTotal.setText(String.format("Total : %s", formatter.currency(total)));
+        txtTotal.setText(String.format(": %s", formatter.currency(total)));
     }
 
     public void init() {
         tableMenuModel = (DefaultTableModel) tableMenu.getModel();
 
         try {
-            PreparedStatement st = database.getConnection().prepareStatement(
-                    "SELECT * from menu");
-            ResultSet rs = st.executeQuery();
-
-            while (rs.next()) {
-                menu Menu = new menu(rs.getInt("id"), rs.getString("nama"), rs.getInt("stock"), rs.getInt("harga"));
-                menuList.add(Menu);
-            }
-
-            for (menu Menu : menuList) {
-                tableMenuModel.addRow(new Object[]{Menu.getNama(), Menu.getStock(), formatter.currency(Menu.getHarga())});
+            for (menu Menu : menuList.values()) {
+                tableMenuModel.addRow(new Object[]{
+                    Menu.getNama(),
+                    Menu.getStock(),
+                    formatter.currency(Menu.getHarga())
+                });
             }
 
             for (int i = 0; i < tableMenu.getColumnCount(); i++) {

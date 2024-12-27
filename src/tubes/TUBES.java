@@ -8,10 +8,11 @@ package tubes;
 import gui.loginForm;
 import lib.database;
 import models.account;
-import java.sql.Connection;
-import java.sql.Statement;
-import java.util.ArrayList;
-import models.detailMenu;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import models.menu;
+import models.orderDetail;
 
 /**
  *
@@ -20,7 +21,7 @@ import models.detailMenu;
 public class TUBES {
 
     public static account akun;
-    public static ArrayList<detailMenu> orderList = new ArrayList<>();
+    public static Map<Integer, menu> menuList = new HashMap<>();
 
     public static void main(String[] args) {
         TUBES app = new TUBES();
@@ -39,8 +40,28 @@ public class TUBES {
     public boolean loadData() {
         try {
             Connection connection = database.getConnection();
-            Statement statement = connection.createStatement();
             System.out.println("Connected to the database.");
+
+            String query = "SELECT * FROM menu";
+            Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
+
+            menuList.clear();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nama = resultSet.getString("nama");
+                int stock = resultSet.getInt("stock");
+                int harga = resultSet.getInt("harga");
+
+                menu newMenu = new menu(id, nama, stock, harga);
+                menuList.put(id, newMenu);
+            }
+
+            resultSet.close();
+            statement.close();
+
+            System.out.println("Menu data loaded successfully.");
             return true;
         } catch (Exception e) {
             e.printStackTrace();
