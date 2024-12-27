@@ -104,11 +104,6 @@ public class account implements accountInterface {
             new Debug().setVisible(true);
         }
         new mainMenu().setVisible(true);
-
-        for (Integer key : this.orderHistory.keySet()) {
-            orderDetail detail = orderHistory.get(key);
-            System.out.println("Order ID: " + key + " " + detail.detailMenu.size());
-        }
     }
 
     @Override

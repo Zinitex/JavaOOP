@@ -56,11 +56,13 @@ public class detailOrderHistory extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableHistory = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        txtAccumulate = new javax.swing.JLabel();
+        txtOrderId = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         txtTransaction = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         txtTransaction1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtStatus = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -120,16 +122,16 @@ public class detailOrderHistory extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(17, 17, 17));
         jLabel1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(17, 17, 17));
-        jLabel1.setText("Status");
+        jLabel1.setText("ID");
 
-        txtAccumulate.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        txtAccumulate.setForeground(new java.awt.Color(17, 17, 17));
-        txtAccumulate.setText(": %s");
+        txtOrderId.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        txtOrderId.setForeground(new java.awt.Color(17, 17, 17));
+        txtOrderId.setText(": %s");
 
         jLabel2.setBackground(new java.awt.Color(17, 17, 17));
         jLabel2.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(17, 17, 17));
-        jLabel2.setText("Total transaksi");
+        jLabel2.setText("Total Transaksi");
 
         txtTransaction.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
         txtTransaction.setForeground(new java.awt.Color(17, 17, 17));
@@ -144,6 +146,15 @@ public class detailOrderHistory extends javax.swing.JFrame {
         txtTransaction1.setForeground(new java.awt.Color(17, 17, 17));
         txtTransaction1.setText(": %s");
 
+        jLabel4.setBackground(new java.awt.Color(17, 17, 17));
+        jLabel4.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(17, 17, 17));
+        jLabel4.setText("Status");
+
+        txtStatus.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        txtStatus.setForeground(new java.awt.Color(17, 17, 17));
+        txtStatus.setText(": %s");
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -155,12 +166,14 @@ public class detailOrderHistory extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
-                            .addComponent(jLabel3))
+                            .addComponent(jLabel3)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTransaction)
-                            .addComponent(txtAccumulate)
-                            .addComponent(txtTransaction1))
+                            .addComponent(txtOrderId)
+                            .addComponent(txtTransaction1)
+                            .addComponent(txtStatus))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
@@ -172,7 +185,11 @@ public class detailOrderHistory extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(txtAccumulate))
+                    .addComponent(txtOrderId))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(txtStatus))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
@@ -226,18 +243,21 @@ public class detailOrderHistory extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableHistory;
-    private javax.swing.JLabel txtAccumulate;
+    private javax.swing.JLabel txtOrderId;
+    private javax.swing.JLabel txtStatus;
     private javax.swing.JLabel txtTransaction;
     private javax.swing.JLabel txtTransaction1;
     // End of variables declaration//GEN-END:variables
 
     private void init() {
-        txtAccumulate.setText(String.format(": %s", formatter.capitalText(order.getStatus())));
+        txtOrderId.setText(String.format(": %s", formatter.capitalText(Integer.toString(order.getId()))));
+        txtStatus.setText(String.format(": %s", formatter.capitalText(order.getStatus())));
 //        txtTransaction1.setText(String.format(": %s", formatter.formatDate(order.getDate()))); // Format the date appropriately
 
         tableHistoryModel = (DefaultTableModel) tableHistory.getModel();

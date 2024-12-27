@@ -78,6 +78,11 @@ public class mainMenu extends javax.swing.JFrame {
         });
 
         btnManageMenu.setText("Manage Menu");
+        btnManageMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnManageMenuActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Keluar");
 
@@ -145,6 +150,10 @@ public class mainMenu extends javax.swing.JFrame {
         new orderHistory(this).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnHistoryActionPerformed
+
+    private void btnManageMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageMenuActionPerformed
+        new manageMenu(this).setVisible(true);
+    }//GEN-LAST:event_btnManageMenuActionPerformed
 
     /**
      * @param args the command line arguments
