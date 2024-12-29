@@ -4,7 +4,6 @@
  */
 package gui;
 
-import databases.databasePerson;
 import lib.database;
 import lib.validasiException;
 import models.account;
