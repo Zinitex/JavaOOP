@@ -4,15 +4,14 @@
  */
 package tubes;
 
-import GUI.Debug;
-import GUI.loginForm;
-import Lib.database;
-import Models.account;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-import java.util.ArrayList;
-import javax.swing.table.DefaultTableModel;
+import gui.loginForm;
+import lib.database;
+import models.account;
+import java.sql.*;
+import java.util.HashMap;
+import java.util.Map;
+import models.menu;
+import models.orderDetail;
 
 /**
  *
@@ -20,30 +19,61 @@ import javax.swing.table.DefaultTableModel;
  */
 public class TUBES {
 
-    account akun;
+    public static account akun;
+    public static Map<Integer, menu> menuList = new HashMap<>();
 
     public static void main(String[] args) {
-        System.out.println("Test");
-        new TUBES().loadData();
+        TUBES app = new TUBES();
+
+        if (!app.loadData()) {
+            System.out.println("Failed to load data. Exiting program.");
+            return;
+        }
+
         new loginForm().setVisible(true);
+//      bypass login 
+//        akun = new account("admin@restoran.com", "admin123", "nanda", "admin", 2);
+//        akun.login();
     }
 
-    public void loadData() {
+    public void loadMenu() {
         try {
-            Connection connection = database.getConnection();
-            Statement statement = connection.createStatement();
+            String query = "SELECT * FROM menu";
+            Statement statement = database.getConnection().createStatement();
+            ResultSet resultSet = statement.executeQuery(query);
 
-            System.out.println("Connected to the database.");
+            menuList.clear();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String nama = resultSet.getString("nama");
+                int stock = resultSet.getInt("stock");
+                int harga = resultSet.getInt("harga");
+
+                menu newMenu = new menu(id, nama, stock, harga);
+                menuList.put(id, newMenu);
+            }
+
+            resultSet.close();
+            statement.close();
+
+            System.out.println("Menu data loaded successfully.");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void login(String email, String password, String phone, String username, Boolean isAdmin) {
-        akun = new account(email, password, phone, username, isAdmin);
+    public boolean loadData() {
+        try {
+            Connection connection = database.getConnection();
+            System.out.println("Connected to the database.");
 
-        if (this.akun.isAdmin) {
-            new Debug().setVisible(true);
+            loadMenu();
+
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
