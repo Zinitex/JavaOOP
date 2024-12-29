@@ -5,8 +5,10 @@
 package gui;
 
 import java.sql.*;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import lib.database;
 import lib.formatter;
 import models.menu;
 import static tubes.TUBES.menuList;
@@ -20,7 +22,7 @@ public class manageMenu extends javax.swing.JFrame {
     PreparedStatement st;
     private mainMenu parent;
     private DefaultTableModel tableMenuModel;
-    
+
     /**
      * Creates new form manageMenu
      */
@@ -44,11 +46,11 @@ public class manageMenu extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableMenu = new javax.swing.JTable();
         btnReturn = new javax.swing.JButton();
-        btnReturn1 = new javax.swing.JButton();
-        btnReturn2 = new javax.swing.JButton();
-        btnReturn3 = new javax.swing.JButton();
-        btnReturn4 = new javax.swing.JButton();
-        btnReturn5 = new javax.swing.JButton();
+        btnAdd = new javax.swing.JButton();
+        btnUpdatePrice = new javax.swing.JButton();
+        btnUpdateStock = new javax.swing.JButton();
+        btnEditName = new javax.swing.JButton();
+        btnDelete = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -83,38 +85,38 @@ public class manageMenu extends javax.swing.JFrame {
             }
         });
 
-        btnReturn1.setText("Tambah Menu");
-        btnReturn1.addActionListener(new java.awt.event.ActionListener() {
+        btnAdd.setText("Tambah Menu");
+        btnAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturn1ActionPerformed(evt);
+                btnAddActionPerformed(evt);
             }
         });
 
-        btnReturn2.setText("Ubah Harga");
-        btnReturn2.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdatePrice.setText("Ubah Harga");
+        btnUpdatePrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturn2ActionPerformed(evt);
+                btnUpdatePriceActionPerformed(evt);
             }
         });
 
-        btnReturn3.setText("Ubah Stock");
-        btnReturn3.addActionListener(new java.awt.event.ActionListener() {
+        btnUpdateStock.setText("Ubah Stock");
+        btnUpdateStock.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturn3ActionPerformed(evt);
+                btnUpdateStockActionPerformed(evt);
             }
         });
 
-        btnReturn4.setText("Ubah Nama");
-        btnReturn4.addActionListener(new java.awt.event.ActionListener() {
+        btnEditName.setText("Ubah Nama");
+        btnEditName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturn4ActionPerformed(evt);
+                btnEditNameActionPerformed(evt);
             }
         });
 
-        btnReturn5.setText("Hapus Menu");
-        btnReturn5.addActionListener(new java.awt.event.ActionListener() {
+        btnDelete.setText("Hapus Menu");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReturn5ActionPerformed(evt);
+                btnDeleteActionPerformed(evt);
             }
         });
 
@@ -131,15 +133,15 @@ public class manageMenu extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(btnReturn1, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnReturn5, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
-                                .addComponent(btnReturn4, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnEditName, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnReturn3, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(btnUpdateStock, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnReturn2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btnUpdatePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1))
                         .addGap(15, 15, 15))))
         );
@@ -152,11 +154,11 @@ public class manageMenu extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 403, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(15, 15, 15)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnReturn1)
-                    .addComponent(btnReturn2)
-                    .addComponent(btnReturn3)
-                    .addComponent(btnReturn4)
-                    .addComponent(btnReturn5))
+                    .addComponent(btnAdd)
+                    .addComponent(btnUpdatePrice)
+                    .addComponent(btnUpdateStock)
+                    .addComponent(btnEditName)
+                    .addComponent(btnDelete))
                 .addGap(15, 15, 15))
         );
 
@@ -179,43 +181,176 @@ public class manageMenu extends javax.swing.JFrame {
         new mainMenu().setVisible(true);
     }//GEN-LAST:event_btnReturnActionPerformed
 
-    private void btnReturn1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReturn1ActionPerformed
+    private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
+        String nama = JOptionPane.showInputDialog(this, "Masukkan nama menu:");
+        if (nama == null || nama.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Nama menu tidak valid.");
+            return;
+        }
 
-    private void btnReturn2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReturn2ActionPerformed
+        try {
+            int stock = Integer.parseInt(JOptionPane.showInputDialog(this, "Masukkan stok menu:"));
+            int harga = Integer.parseInt(JOptionPane.showInputDialog(this, "Masukkan harga menu:"));
 
-    private void btnReturn3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReturn3ActionPerformed
+            st = database.getConnection().prepareStatement("INSERT INTO menu (nama, stock, harga) VALUES (?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, nama);
+            st.setInt(2, stock);
+            st.setInt(3, harga);
 
-    private void btnReturn4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReturn4ActionPerformed
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                ResultSet rs = st.getGeneratedKeys();
+                if (rs.next()) {
+                    int id = rs.getInt(1);
+                    menu newMenu = new menu(id, nama, stock, harga);
+                    menuList.put(id, newMenu);
+                    init();
+                    JOptionPane.showMessageDialog(this, "Menu berhasil ditambahkan.");
+                }
+                rs.close();
+            }
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menambahkan menu.");
+        }
+    }//GEN-LAST:event_btnAddActionPerformed
 
-    private void btnReturn5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReturn5ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnReturn5ActionPerformed
+    private void btnUpdatePriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdatePriceActionPerformed
+        int selectedRow = tableMenu.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih menu yang ingin diubah.");
+            return;
+        }
+
+        int menuId = (int) tableMenuModel.getValueAt(selectedRow, 0);
+        menu selectedMenu = menuList.get(menuId);
+
+        try {
+            int newPrice = Integer.parseInt(JOptionPane.showInputDialog(this, "Masukkan harga baru:", selectedMenu.getHarga()));
+            st = database.getConnection().prepareStatement("UPDATE menu SET harga = ? WHERE id = ?");
+            st.setInt(1, newPrice);
+            st.setInt(2, menuId);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                selectedMenu.setHarga(newPrice);
+                init();
+                JOptionPane.showMessageDialog(this, "Harga menu berhasil diubah.");
+            }
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mengubah harga.");
+        }
+    }//GEN-LAST:event_btnUpdatePriceActionPerformed
+
+    private void btnUpdateStockActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateStockActionPerformed
+        int selectedRow = tableMenu.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih menu yang ingin diubah.");
+            return;
+        }
+
+        int menuId = (int) tableMenuModel.getValueAt(selectedRow, 0);
+        menu selectedMenu = menuList.get(menuId);
+
+        try {
+            int newStock = Integer.parseInt(JOptionPane.showInputDialog(this, "Masukkan stok baru:", selectedMenu.getStock()));
+            st = database.getConnection().prepareStatement("UPDATE menu SET stock = ? WHERE id = ?");
+            st.setInt(1, newStock);
+            st.setInt(2, menuId);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                selectedMenu.setStock(newStock);
+                init();
+                JOptionPane.showMessageDialog(this, "Stok menu berhasil diubah.");
+            }
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mengubah stok.");
+        }
+    }//GEN-LAST:event_btnUpdateStockActionPerformed
+
+    private void btnEditNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditNameActionPerformed
+        int selectedRow = tableMenu.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih menu yang ingin diubah.");
+            return;
+        }
+
+        int menuId = (int) tableMenuModel.getValueAt(selectedRow, 0);
+        menu selectedMenu = menuList.get(menuId);
+
+        try {
+            String newName = JOptionPane.showInputDialog(this, "Masukkan nama baru:", selectedMenu.getNama());
+            if (newName == null || newName.trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Nama tidak valid.");
+                return;
+            }
+
+            st = database.getConnection().prepareStatement("UPDATE menu SET nama = ? WHERE id = ?");
+            st.setString(1, newName);
+            st.setInt(2, menuId);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                selectedMenu.setNama(newName);
+                init();
+                JOptionPane.showMessageDialog(this, "Nama menu berhasil diubah.");
+            }
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat mengubah nama.");
+        }
+    }//GEN-LAST:event_btnEditNameActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        int selectedRow = tableMenu.getSelectedRow();
+        if (selectedRow == -1) {
+            JOptionPane.showMessageDialog(this, "Pilih menu yang ingin dihapus.");
+            return;
+        }
+
+        int menuId = (int) tableMenuModel.getValueAt(selectedRow, 0);
+
+        try {
+            st = database.getConnection().prepareStatement("DELETE FROM menu WHERE id = ?");
+            st.setInt(1, menuId);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                menuList.remove(menuId);
+                init();
+                JOptionPane.showMessageDialog(this, "Menu berhasil dihapus.");
+            }
+            st.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Terjadi kesalahan saat menghapus menu.");
+        }
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
     /**
      * @param args the command line arguments
      */
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAdd;
+    private javax.swing.JButton btnDelete;
+    private javax.swing.JButton btnEditName;
     private javax.swing.JButton btnReturn;
-    private javax.swing.JButton btnReturn1;
-    private javax.swing.JButton btnReturn2;
-    private javax.swing.JButton btnReturn3;
-    private javax.swing.JButton btnReturn4;
-    private javax.swing.JButton btnReturn5;
+    private javax.swing.JButton btnUpdatePrice;
+    private javax.swing.JButton btnUpdateStock;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableMenu;
     // End of variables declaration//GEN-END:variables
-    
+
     public void init() {
         tableMenuModel = (DefaultTableModel) tableMenu.getModel();
         tableMenuModel.setRowCount(0);
