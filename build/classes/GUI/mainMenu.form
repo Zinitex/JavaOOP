@@ -63,13 +63,16 @@
               <Group type="102" attributes="0">
                   <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
-                      <Component id="jLabel1" alignment="2" min="-2" max="-2" attributes="0"/>
                       <Component id="btnPesan" alignment="2" min="-2" pref="230" max="-2" attributes="0"/>
                       <Component id="btnHistory" alignment="2" min="-2" pref="230" max="-2" attributes="0"/>
                       <Component id="jButton4" alignment="2" min="-2" pref="230" max="-2" attributes="0"/>
                       <Component id="welcomeText" alignment="2" min="-2" pref="379" max="-2" attributes="0"/>
                       <Component id="btnManagePesanan" alignment="2" min="-2" pref="230" max="-2" attributes="0"/>
                       <Component id="btnManageMenu" alignment="2" min="-2" pref="230" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
+                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
                   <EmptySpace min="-2" pref="90" max="-2" attributes="0"/>
               </Group>
@@ -78,20 +81,20 @@
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="46" max="-2" attributes="0"/>
                   <Component id="jLabel1" pref="178" max="32767" attributes="0"/>
-                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                  <Component id="welcomeText" max="32767" attributes="0"/>
+                  <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                  <Component id="welcomeText" pref="28" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                  <Component id="btnPesan" max="32767" attributes="0"/>
+                  <Component id="btnPesan" pref="26" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="btnHistory" max="32767" attributes="0"/>
+                  <Component id="btnHistory" pref="26" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="btnManagePesanan" max="32767" attributes="0"/>
+                  <Component id="btnManagePesanan" pref="26" max="32767" attributes="0"/>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="btnManageMenu" max="32767" attributes="0"/>
+                  <Component id="btnManageMenu" pref="26" max="32767" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="jButton4" max="32767" attributes="0"/>
+                  <Component id="jButton4" pref="26" max="32767" attributes="0"/>
                   <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
               </Group>
           </Group>
