@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 import lib.database;
 import lib.formatter;
 import models.menu;
+import tubes.TUBES;
 import static tubes.TUBES.menuList;
 
 /**
@@ -27,6 +28,13 @@ public class manageMenu extends javax.swing.JFrame {
      * Creates new form manageMenu
      */
     public manageMenu(mainMenu parent) {
+        if (!TUBES.akun.getRole().matches("admin")) {
+            JOptionPane.showMessageDialog(this, "Akses ditolak. Hanya admin yang dapat mengakses menu ini.", "Error", JOptionPane.ERROR_MESSAGE);
+            new mainMenu().setVisible(true);
+            dispose();
+            return;
+        }
+        
         initComponents();
         setLocationRelativeTo(null);
         this.parent = parent;
@@ -134,13 +142,13 @@ public class manageMenu extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(btnAdd, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(10, 10, 10)
                                 .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 125, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 240, Short.MAX_VALUE)
                                 .addComponent(btnEditName, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(10, 10, 10)
                                 .addComponent(btnUpdateStock, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGap(10, 10, 10)
                                 .addComponent(btnUpdatePrice, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1))
                         .addGap(15, 15, 15))))

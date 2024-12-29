@@ -85,6 +85,11 @@ public class mainMenu extends javax.swing.JFrame {
         });
 
         jButton4.setText("Keluar");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -142,7 +147,7 @@ public class mainMenu extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPesanActionPerformed
 
     private void btnManagePesananActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManagePesananActionPerformed
-        new manageFoodForm(this).setVisible(true);
+        new manageOrder(this).setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnManagePesananActionPerformed
 
@@ -153,7 +158,12 @@ public class mainMenu extends javax.swing.JFrame {
 
     private void btnManageMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageMenuActionPerformed
         new manageMenu(this).setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnManageMenuActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        this.setVisible(false);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments

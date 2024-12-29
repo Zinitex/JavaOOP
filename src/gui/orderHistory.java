@@ -124,7 +124,7 @@ public class orderHistory extends javax.swing.JFrame {
         jLabel1.setBackground(new java.awt.Color(17, 17, 17));
         jLabel1.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(17, 17, 17));
-        jLabel1.setText("Akumulasi pembelian");
+        jLabel1.setText("Akumulasi");
 
         txtAccumulate.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
         txtAccumulate.setForeground(new java.awt.Color(17, 17, 17));
@@ -133,7 +133,7 @@ public class orderHistory extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(17, 17, 17));
         jLabel2.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(17, 17, 17));
-        jLabel2.setText("Jumlah transaksi");
+        jLabel2.setText("Jumlah");
 
         txtTransaction.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
         txtTransaction.setForeground(new java.awt.Color(17, 17, 17));
@@ -167,13 +167,13 @@ public class orderHistory extends javax.swing.JFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
                                 .addComponent(btnCheck))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE))
                         .addGap(15, 15, 15))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(15, 15, 15)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtAccumulate))
@@ -183,7 +183,7 @@ public class orderHistory extends javax.swing.JFrame {
                     .addComponent(txtTransaction))
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(15, 15, 15)
                 .addComponent(btnCheck)
                 .addContainerGap(15, Short.MAX_VALUE))
         );

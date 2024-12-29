@@ -131,7 +131,7 @@ public class detailOrderHistory extends javax.swing.JFrame {
         jLabel2.setBackground(new java.awt.Color(17, 17, 17));
         jLabel2.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(17, 17, 17));
-        jLabel2.setText("Total Transaksi");
+        jLabel2.setText("Total");
 
         txtTransaction.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
         txtTransaction.setForeground(new java.awt.Color(17, 17, 17));
@@ -140,7 +140,7 @@ public class detailOrderHistory extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(17, 17, 17));
         jLabel3.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(17, 17, 17));
-        jLabel3.setText("Tanggal transaksi");
+        jLabel3.setText("Tanggal");
 
         txtTransaction1.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
         txtTransaction1.setForeground(new java.awt.Color(17, 17, 17));
@@ -176,7 +176,7 @@ public class detailOrderHistory extends javax.swing.JFrame {
                             .addComponent(txtStatus))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 530, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 595, Short.MAX_VALUE)
                         .addGap(15, 15, 15))))
         );
         jPanel3Layout.setVerticalGroup(

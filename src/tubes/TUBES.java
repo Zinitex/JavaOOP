@@ -30,10 +30,10 @@ public class TUBES {
             return;
         }
 
-//        new loginForm().setVisible(true);
+        new loginForm().setVisible(true);
 //      bypass login 
-        akun = new account("admin@restoran.com", "admin123", "nanda", "admin", 2);
-        akun.login();
+//        akun = new account("admin@restoran.com", "admin123", "nanda", "admin", 2);
+//        akun.login();
     }
 
     public void loadMenu() {
