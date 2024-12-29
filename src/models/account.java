@@ -4,7 +4,6 @@
  */
 package models;
 
-import gui.Debug;
 import gui.mainMenu;
 import interfaces.accountInterface;
 import java.util.ArrayList;
@@ -99,9 +98,6 @@ public class account implements accountInterface {
     public void login() {
         if (!this.loadOrderHistory()) {
             return;
-        }
-        if (this.role.equals("admin")) {
-            new Debug().setVisible(true);
         }
         new mainMenu().setVisible(true);
     }
