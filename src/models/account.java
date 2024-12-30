@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.Map;
 import lib.database;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import static tubes.TUBES.menuList;
 
 /**
@@ -59,8 +60,10 @@ public class account implements accountInterface {
             this.orderHistory.clear();
 
             while (resultSet.next()) {
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                
                 int orderId = resultSet.getInt("pemesanan_id");
-                Date orderDate = resultSet.getDate("tanggal");
+                Timestamp orderDate = resultSet.getTimestamp("tanggal");
                 String orderStatus = resultSet.getString("status");
                 int menuId = resultSet.getInt("menu_id");
                 int menuQuantity = resultSet.getInt("menu_quantity");

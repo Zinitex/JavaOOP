@@ -6,6 +6,7 @@ package gui;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,7 +61,7 @@ public class detailOrderHistory extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         txtTransaction = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        txtTransaction1 = new javax.swing.JLabel();
+        txtDate = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         txtStatus = new javax.swing.JLabel();
 
@@ -142,9 +143,9 @@ public class detailOrderHistory extends javax.swing.JFrame {
         jLabel3.setForeground(new java.awt.Color(17, 17, 17));
         jLabel3.setText("Tanggal");
 
-        txtTransaction1.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
-        txtTransaction1.setForeground(new java.awt.Color(17, 17, 17));
-        txtTransaction1.setText(": %s");
+        txtDate.setFont(new java.awt.Font("Inter", 1, 14)); // NOI18N
+        txtDate.setForeground(new java.awt.Color(17, 17, 17));
+        txtDate.setText(": %s");
 
         jLabel4.setBackground(new java.awt.Color(17, 17, 17));
         jLabel4.setFont(new java.awt.Font("Inter", 0, 14)); // NOI18N
@@ -172,7 +173,7 @@ public class detailOrderHistory extends javax.swing.JFrame {
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtTransaction)
                             .addComponent(txtOrderId)
-                            .addComponent(txtTransaction1)
+                            .addComponent(txtDate)
                             .addComponent(txtStatus))
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
@@ -197,7 +198,7 @@ public class detailOrderHistory extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtTransaction1))
+                    .addComponent(txtDate))
                 .addGap(15, 15, 15)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 337, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(15, Short.MAX_VALUE))
@@ -249,17 +250,16 @@ public class detailOrderHistory extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tableHistory;
+    private javax.swing.JLabel txtDate;
     private javax.swing.JLabel txtOrderId;
     private javax.swing.JLabel txtStatus;
     private javax.swing.JLabel txtTransaction;
-    private javax.swing.JLabel txtTransaction1;
     // End of variables declaration//GEN-END:variables
 
     private void init() {
         txtOrderId.setText(String.format(": %s", formatter.capitalText(Integer.toString(order.getId()))));
         txtStatus.setText(String.format(": %s", formatter.capitalText(order.getStatus())));
-//        txtTransaction1.setText(String.format(": %s", formatter.formatDate(order.getDate()))); // Format the date appropriately
-
+        txtDate.setText(String.format(": %s", order.getDate()));
         tableHistoryModel = (DefaultTableModel) tableHistory.getModel();
 
         int total = 0;

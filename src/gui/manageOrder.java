@@ -10,6 +10,7 @@ import javax.swing.table.DefaultTableModel;
 import lib.formatter;
 import tubes.TUBES;
 import java.sql.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import lib.database;
 
 /**
@@ -204,21 +205,29 @@ public class manageOrder extends javax.swing.JFrame {
         try {
             // Query to fetch all orders with customer name
             String query = """
-            SELECT 
-                p.id AS order_id,
-                u.name AS customer, 
-                p.tanggal, 
-                p.status, 
-                (SELECT COUNT(*) FROM detailpemesanan WHERE pemesanan_id = p.id) AS total_items,
-                (SELECT SUM(dp.jumlah * m.harga) 
-                    FROM detailpemesanan dp 
-                    JOIN menu m ON dp.menu_id = m.id 
-                    WHERE dp.pemesanan_id = p.id) AS total_price
-            FROM 
-                pemesanan p
-            JOIN 
-                users u ON p.user_id = u.id;
-        """;
+    SELECT 
+        p.id AS order_id,
+        u.name AS customer, 
+        p.tanggal, 
+        p.status, 
+        (SELECT COUNT(*) FROM detailpemesanan WHERE pemesanan_id = p.id) AS total_items,
+        (SELECT SUM(dp.jumlah * m.harga) 
+            FROM detailpemesanan dp 
+            JOIN menu m ON dp.menu_id = m.id 
+            WHERE dp.pemesanan_id = p.id) AS total_price
+    FROM 
+        pemesanan p
+    JOIN 
+        users u ON p.user_id = u.id
+    ORDER BY 
+        CASE 
+            WHEN p.status = 'processed' THEN 1
+            WHEN p.status = 'delivered' THEN 2
+            WHEN p.status = 'canceled' THEN 3
+            ELSE 4
+        END, 
+        p.tanggal DESC;
+    """;
             Statement st = database.getConnection().createStatement();
             ResultSet rs = st.executeQuery(query);
 
@@ -233,6 +242,11 @@ public class manageOrder extends javax.swing.JFrame {
                 });
             }
 
+            for (int i = 0; i < jTable1.getColumnCount(); i++) {
+                DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+                centerRenderer.setHorizontalAlignment(DefaultTableCellRenderer.CENTER);
+                jTable1.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
+            }
             rs.close();
             st.close();
         } catch (Exception e) {
